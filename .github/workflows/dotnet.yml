@@ -20,7 +20,7 @@ jobs:
 
     # Optional: Generate lock file if needed
     - name: Restore dependencies
-      run: dotnet restore src/ChartCareMVC/ChartCareMVC.sln --use-lock-file
+      run: dotnet restore ChartCareMVC/ChartCareMVC.sln --use-lock-file
 
     - name: Build
       run: dotnet build src/ChartCareMVC/ChartCareMVC.sln --no-restore
