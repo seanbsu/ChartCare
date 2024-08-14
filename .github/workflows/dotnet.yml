@@ -7,23 +7,40 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  list-files:
     runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
+    - name: List directory contents
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "List root directory:"
+        ls -la
+        echo "List ChartCareMVC directory:"
+        ls -la ChartCareMVC
+        echo "List MVC-Tests directory:"
+        ls -la ChartCareMVC/MVC-Tests
+
+  build:
+    needs: list-files
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-    # Optional: Generate lock file if needed
     - name: Restore dependencies
       run: dotnet restore ChartCareMVC/ChartCareMVC.sln --use-lock-file
 
     - name: Build
-      run: dotnet build src/ChartCareMVC/ChartCareMVC.sln --no-restore
+      run: dotnet build ChartCareMVC/ChartCareMVC.sln --no-restore
 
     - name: Test
-      run: dotnet test src/ChartCareMVC/MVC-Tests/MVC-Tests.csproj --no-build --verbosity normal
+      run: dotnet test ChartCareMVC/MVC-Tests/MVC-Tests.csproj --no-build --verbosity normal
+
