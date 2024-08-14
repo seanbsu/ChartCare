@@ -483,5 +483,5 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-./github/workflows/build.yml
-./github/workflows/lint-test.yml
+.github/workflows/lint-test.yml
+.github/workflows/build.yml
