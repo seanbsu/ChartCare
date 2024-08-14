@@ -20,7 +20,7 @@ jobs:
 
     # Optional: Generate lock file if needed
     - name: Restore dependencies
-      run: dotnet restore --use-lock-file
+      run: dotnet restore 
 
     - name: Build
       run: dotnet build --no-restore
