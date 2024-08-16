@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/ChartCareMVC.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+@*     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChartCareMVC</a>
@@ -29,6 +29,26 @@
                 </div>
             </div>
         </nav>
+    </header> *@
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-red-custom">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img class="logo" src="~/images/heart-icon.jpg" asp-alt="Logo"></img>
+            </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-right mb-md-0 nav-link-color">
+            <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="#" class="nav-link px-2">Features</a></li>
+            <li><a href="#" class="nav-link px-2">Pricing</a></li>
+            <li><a href="#" class="nav-link px-2">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2">About</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-light me-2">Login</button>
+            <button type="button" class="btn btn-dark" id="sign-up-btn">Sign-up</button>
+        </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">

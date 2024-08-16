@@ -20,3 +20,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.bg-red-custom {
+    background-color: #b02a37; /* Example hex color for red */
+    color:white;
+}
+
+.logo {
+    width: 50px;
+    height: 45px;
+    margin-left: 5px;
+}
+
+.nav-link-color .nav-link {
+    color: white;
+}
+.logo{
+    border-radius:30%;
+}
+
+#sign-up-btn {
+    margin-right: 5px;
+
+}
