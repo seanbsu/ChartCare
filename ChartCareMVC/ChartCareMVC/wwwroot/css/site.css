@@ -68,10 +68,19 @@ body {
 header, footer {
     flex-shrink: 0;
 }
+
 .company{
     color:white;
     margin-left:10px;
 }
+
 .footer-link .nav-link {
     color: #C7C7C7;
+}
+
+.disclaimer {
+    color: grey;
+}
+.action-btn-1 {
+    background-color: #b02a37;
 }
