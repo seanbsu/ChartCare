@@ -45,11 +45,20 @@ body {
     text-decoration:none;
     color:white;
 }
+#sign-up-btn:hover{
+    background-color:white;
+    color:black;
+}
 
 .login-btn {
     text-decoration: none;
     color: white !important;
 }
+.login-btn:hover{
+    background-color:black;
+    color:white;
+}
+
 .custom-footer{
     background-color:#292929;
     margin:0px;
