@@ -14,7 +14,7 @@ namespace MVC_Tests
             httpClient = new HttpClient();
         }
 
-        [Fact]
+        [Fact(Skip = "moved to another test")]
         public async void TestHomeLoads()
         {
             // Arrange
@@ -54,12 +54,12 @@ namespace MVC_Tests
 
         }
 
-        [Theory(Skip = "base links to be supported later")]
+        [Theory]
         [InlineData("/")]
-        [InlineData("/Home/Features")]
-        [InlineData("/Home/Pricing")]
-        [InlineData("/Home/SignUp")]
-        [InlineData("/Home/Login")]
+        //[InlineData("/Home/Features")]
+        //[InlineData("/Home/Pricing")]
+        [InlineData("/Identity/Account/Register")]
+        [InlineData("/Identity/Account/Login")]
         public async void TestAllPagesLoad(string URL)
         {
             //Arrange

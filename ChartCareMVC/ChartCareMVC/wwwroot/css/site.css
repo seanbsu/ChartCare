@@ -42,7 +42,13 @@ body {
 
 #sign-up-btn {
     margin-right: 5px;
+    text-decoration:none;
+    color:white;
+}
 
+.login-btn {
+    text-decoration: none;
+    color: white !important;
 }
 .custom-footer{
     background-color:#292929;
@@ -62,7 +68,6 @@ body {
 }
 .container {
     flex-grow: 1;
-    overflow-y: auto;
 }
 
 header, footer {
