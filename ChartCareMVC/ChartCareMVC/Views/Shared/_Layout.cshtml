@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ChartCareMVC</title>
+    <title>@ViewData["Title"] </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ChartCareMVC.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" href="~/images/ChartCare.ico" class="icon" />
 </head>
 <body class="d-flex flex-column min-vh-100 overflow-auto">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-red-custom">
@@ -30,7 +31,7 @@
         </div>
     </header>
 
-    <div class="container flex-grow-1 overflow-auto min-vh-100">
+    <div class="container flex-grow-1 overflow-auto min-vh-100 align-content-center">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
