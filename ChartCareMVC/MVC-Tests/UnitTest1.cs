@@ -70,5 +70,46 @@ namespace MVC_Tests
             //Assert
             Assert.Equal(200, code);
         }
+
+        [Fact]
+        public async void TestRegisterPageContents()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("/Identity/Account/Register");
+            response.EnsureSuccessStatusCode(); 
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            Assert.Contains("Company Name", responseString);
+            Assert.Contains("Email", responseString);
+            Assert.Contains("Password", responseString);
+            Assert.Contains("Confirm Password", responseString);
+            Assert.Contains("Pricing Plan", responseString);
+            Assert.Contains("Address", responseString);
+            Assert.Contains("Free", responseString);
+            Assert.Contains("Standard", responseString);
+            Assert.Contains("Premium", responseString);
+        }
+
+        [Fact]
+        public async void TestLoginPageContents()
+        {
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("/Identity/Account/Login");
+            response.EnsureSuccessStatusCode();
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            
+            Assert.Contains("Email", responseString);
+            Assert.Contains("Password", responseString);
+            Assert.Contains("Remember me?", responseString);
+            Assert.Contains("Login", responseString);
+            Assert.Contains("Register as a new user", responseString);
+            Assert.Contains("Forgot your password?", responseString);
+            Assert.Contains("Resend email confirmation", responseString);
+        }
+
     }
+    
 }

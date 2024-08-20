@@ -45,11 +45,20 @@ body {
     text-decoration:none;
     color:white;
 }
+#sign-up-btn:hover{
+    background-color:white;
+    color:black;
+}
 
 .login-btn {
     text-decoration: none;
     color: white !important;
 }
+.login-btn:hover{
+    background-color:black;
+    color:white;
+}
+
 .custom-footer{
     background-color:#292929;
     margin:0px;
@@ -88,4 +97,25 @@ header, footer {
 }
 .action-btn-1 {
     background-color: #b02a37;
+}
+
+.form-register {
+   margin-left: 1rem;
+   max-width: 400px; 
+   margin: 0 auto;
+}
+
+.image-placeholder {
+    background-image: url('../images/medical-charting-img.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex: 1; 
+    height: 100%; 
+    width:120%
+}
+
+.disclaimer-registration {
+    color: grey;
+    font-size:16px;
 }
