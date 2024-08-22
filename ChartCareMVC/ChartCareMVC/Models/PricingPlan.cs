@@ -8,5 +8,7 @@ namespace ChartCareMVC.Models
         }
     public class PricingPlan
     {
+        
+        public int ID { get; set; }
     }
 }
