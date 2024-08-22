@@ -24,5 +24,19 @@ public class CompanyDbContext : IdentityDbContext<CompanyUser>
         // Add your customizations after calling base.OnModelCreating(builder);
         builder.Entity<Company>().ToTable("Company");
         builder.Entity<PricingPlan>().ToTable("Pricing_Plan");
+        
+
+        builder.Entity<PricingPlan>()
+        .Property(p => p.PlanName)
+        .HasConversion(
+            v => (int)v, 
+            v => (Plan)v 
+        );
+
+        builder.Entity<PricingPlan>().HasData(
+        new PricingPlan { ID = 1, PlanName = Plan.Free, PlanNameString = "Free", PlanPrice = 9.99f },
+        new PricingPlan { ID = 2, PlanName = Plan.Standard, PlanNameString = "Standard", PlanPrice = 19.99f },
+        new PricingPlan { ID = 3, PlanName = Plan.Premium, PlanNameString = "Premium", PlanPrice = 29.99f }
+        );
     }
 }

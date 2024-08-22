@@ -10,5 +10,11 @@ namespace ChartCareMVC.Models
     {
         
         public int ID { get; set; }
+        public Plan PlanName { get; set; }
+        public  required string PlanNameString { get; set; }
+        public float PlanPrice { get; set; }
+
+        
+        public ICollection<Company>? Companies { get; set; }
     }
 }
