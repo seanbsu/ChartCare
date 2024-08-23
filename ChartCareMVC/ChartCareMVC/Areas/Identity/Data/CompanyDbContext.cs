@@ -24,7 +24,12 @@ public class CompanyDbContext : IdentityDbContext<CompanyUser>
         // Add your customizations after calling base.OnModelCreating(builder);
         builder.Entity<Company>().ToTable("Company");
         builder.Entity<PricingPlan>().ToTable("Pricing_Plan");
-        
+
+        builder.Entity<CompanyUser>()
+        .HasOne(u => u.Company)
+        .WithMany(c => c.CompanyUsers)
+        .HasForeignKey(u => u.CompanyID) // Make sure this matches the column name in AspNetUsers
+        .OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<PricingPlan>()
         .Property(p => p.PlanName)
