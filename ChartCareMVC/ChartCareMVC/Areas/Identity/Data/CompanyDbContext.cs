@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ChartCareMVC.Models;
-using ChartCareMVC.Models;
 
 namespace ChartCareMVC.Data;
 
@@ -13,9 +12,6 @@ public class CompanyDbContext : IdentityDbContext<CompanyUser>
         : base(options)
     {
     }
-
-    public DbSet<Company> Companies { get; set; }
-    public DbSet<PricingPlan> PricingPlans { get; set; }
 
     public DbSet<Company> Companies { get; set; }
     public DbSet<PricingPlan> PricingPlans { get; set; }
