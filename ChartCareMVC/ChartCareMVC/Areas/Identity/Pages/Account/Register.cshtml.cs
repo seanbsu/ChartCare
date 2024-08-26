@@ -151,7 +151,7 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     PricingPlan = pricingPlan 
                 };
-                // TODO: add the company admin user  and link to the company 
+                
                 _context.Companies.Add(company);
                 await _context.SaveChangesAsync();
 
@@ -168,6 +168,8 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    await _userManager.AddToRoleAsync(user, "ADMIN");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
