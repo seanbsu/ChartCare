@@ -38,7 +38,7 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
         [TempData]
         public bool IsSuccess { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string userId, string code)
+        public async Task<IActionResult> OnGetAsync(string userId, string code, string role)
         {
             if (userId == null || code == null)
             {
@@ -52,13 +52,18 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+            var result = await _userManager.ConfirmEmailAsync(user, code); 
             IsSuccess = result.Succeeded;
+            StatusMessage = IsSuccess ? "Thank you for confirming your email." : "Error confirming your email.";
+            if (IsSuccess)
+            {
+                await _userManager.AddToRoleAsync(user, role);
+            }
+           
             return Page();
         }
 
-        public async Task<IActionResult> OnPostResendEmailAsync(string userId)
+        public async Task<IActionResult> OnPostResendEmailAsync(string userId, string role)
         {
             if (userId == null)
             {
@@ -76,7 +81,7 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             var callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
                 pageHandler: null,
-                values: new { userId = userId, code = code },
+                values: new { userId = userId, code = code, role=role },
                 protocol: Request.Scheme);
 
             await _emailSender.SendEmailAsync(
