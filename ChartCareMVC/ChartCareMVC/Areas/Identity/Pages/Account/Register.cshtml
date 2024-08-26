@@ -1,4 +1,5 @@
 ﻿@page
+@using ChartCareMVC.Models
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -24,9 +25,9 @@
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <div class="form-floating mb-3">
-                        <input @* asp-for="Input.CompanyName" *@ class="form-control" autocomplete="organization" aria-required="true" placeholder="company name" />
-                        <label @* asp-for="Input.CompanyName" *@>Company Name</label>
-                        <span @* asp-validation-for="Input.CompanyName" *@ class="text-danger"></span>
+                        <input  asp-for="Input.CompanyName"  class="form-control" autocomplete="organization" aria-required="true" placeholder="company name" />
+                        <label  asp-for="Input.CompanyName" >Company Name</label>
+                        <span  asp-validation-for="Input.CompanyName"  class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -44,19 +45,22 @@
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input @* asp-for="Input.CompanyAddress" *@ class="form-control" autocomplete="street-address" aria-required="true" placeholder="address" />
-                        <label @* asp-for="Input.CompanyAddress" *@>Address</label>
-                        <span @* asp-validation-for="Input.CompanyAddress" *@ class="text-danger"></span>
+                        <input  asp-for="Input.CompanyAddress"  class="form-control" autocomplete="street-address" aria-required="true" placeholder="address" />
+                        <label  asp-for="Input.CompanyAddress" >Address</label>
+                        <span  asp-validation-for="Input.CompanyAddress"  class="text-danger"></span>
                     </div>
-                     <div class="form-floating mb-3">
-                        <select @* asp-for="Input.PricingPlan" *@ class="form-control" aria-required="true">
-                            <option value="Free">Free</option>
-                            <option value="Standard">Standard</option>
-                            <option value="Premium">Premium</option>
+                    <div class="form-floating mb-3">
+                        <select asp-for="Input.PricingPlanID" class="form-control" aria-required="true">
+                            @foreach (var plan in ViewData["PricingPlans"] as List<PricingPlan>)
+                            {
+                                <option value="@plan.ID">@plan.PlanNameString</option>
+                            }
                         </select>
-                        <label @* asp-for="Input.PricingPlan" *@>Pricing Plan</label>
-                        <span @* asp-validation-for="Input.PricingPlan" *@ class="text-danger"></span>
+                        <label asp-for="Input.PricingPlanID">Pricing Plan</label>
+                        <span asp-validation-for="Input.PricingPlanID" class="text-danger"></span>
                     </div>
+
+
                     <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
                 </form>
             </div>
