@@ -195,9 +195,16 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+                
+                _context.Companies.Remove(company);
+                await _context.SaveChangesAsync();
+                await _userManager.DeleteAsync(user);
+
             }
 
             // If we got this far, something failed, redisplay form
+            var PricingPlans = await _context.PricingPlans.ToListAsync();
+            ViewData["PricingPlans"] = PricingPlans;
             return Page();
         }
 
