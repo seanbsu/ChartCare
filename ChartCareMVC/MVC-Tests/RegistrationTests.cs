@@ -64,7 +64,7 @@ namespace MVC_Tests
             // Use the custom TestUrlHelper
             var urlHelper = CreateMockUrlHelper();
             urlHelper.Setup(h => h.RouteUrl(It.IsAny<UrlRouteContext>()))
-                .Returns("http://localhost:5000/Account/ConfirmEmail");
+                .Returns("http://localhost:5000/Identity/Account/ConfirmEmail");
 
             // Create the RegisterModel and assign the mocked dependencies
             var registerModel = new RegisterModel(
@@ -152,9 +152,9 @@ namespace MVC_Tests
             var redirectResult = Assert.IsType<RedirectToPageResult>(result);
             Assert.Equal("RegisterConfirmation", redirectResult.PageName);
             Assert.Null(redirectResult.PageHandler);
-
-            // Verify that the user does not have the Admin role yet
+            // Verify the user does not have the Admin role yet
             userManager.Verify(um => um.GetRolesAsync(It.IsAny<CompanyUser>()), Times.Never);
+
         }
 
 
