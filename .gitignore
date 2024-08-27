@@ -485,3 +485,5 @@ $RECYCLE.BIN/
 
 .github/workflows/lint-test.yml
 .github/workflows/build.yml
+
+env
