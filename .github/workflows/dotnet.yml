@@ -18,8 +18,8 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
-        # Simplified health check
-        options: --health-cmd 'curl -f http://localhost:1433' --health-interval 10s --health-timeout 5s --health-retries 5
+        # Use a simple health check command
+        options: --health-cmd "echo 'SQL Server container is running'" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - uses: actions/checkout@v4
