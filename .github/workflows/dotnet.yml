@@ -53,7 +53,7 @@ jobs:
 
     - name: Apply Database Migrations
       env:
-        ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;'
+        ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd; TrustServerCertificate=True;'
       run: |
         echo "Applying database migrations..."
         dotnet-ef database update --project ChartCareMVC/ChartCareMVC/ChartCareMVC.csproj
