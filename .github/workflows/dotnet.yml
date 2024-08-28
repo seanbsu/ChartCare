@@ -37,23 +37,9 @@ jobs:
     - name: Build
       run: dotnet build ChartCareMVC/ChartCareMVC.sln --no-restore
 
-    - name: Verify dotnet-ef installation
-      run: |
-        echo "Checking for dotnet-ef tool..."
-        dotnet tool list --global
-        which dotnet-ef || echo "dotnet-ef not found"
-        echo "PATH: $PATH"
-
-    - name: Check Project Files
-      run: |
-        echo "Current directory:"
-        pwd
-        echo "Listing files in ChartCareMVC directory:"
-        ls -R ChartCareMVC || echo "ls command not found"
-
     - name: Apply Database Migrations
       env:
-        ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd; TrustServerCertificate=True;'
+        ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;'
       run: |
         echo "Applying database migrations..."
         dotnet-ef database update --project ChartCareMVC/ChartCareMVC/ChartCareMVC.csproj
