@@ -30,6 +30,12 @@ jobs:
 
     - name: Install dotnet-ef tool
       run: dotnet tool install --global dotnet-ef --version 8.*
+      
+    - name: Verify dotnet-ef installation
+      run: |
+        echo "Checking for dotnet-ef tool..."
+        dotnet tool list --global
+        which dotnet-ef || echo "dotnet-ef not found"
 
     - name: Display PATH
       run: echo $PATH
