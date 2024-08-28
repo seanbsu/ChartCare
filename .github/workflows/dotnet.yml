@@ -50,7 +50,7 @@ jobs:
       env:
         ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;'
         PATH: $PATH:/root/.dotnet/tools  # Adjust PATH if needed
-      run: dotnet ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
+      run: dotnet-ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
 
     - name: Run Tests
       env:
