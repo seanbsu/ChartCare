@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChartCareMVC.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20240823142918_UpdatePricing")]
-    partial class UpdatePricing
+    [Migration("20240828205848_Reset")]
+    partial class Reset
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
