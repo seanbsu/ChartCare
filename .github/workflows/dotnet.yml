@@ -41,7 +41,7 @@ jobs:
       env:
         ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;'
         PATH: ${{ github.env.PATH }}:${{ github.action_path }}/.dotnet/tools
-      run: dotnet ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
+      run: dotnet-ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
 
     - name: Run Tests
       env:
