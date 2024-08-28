@@ -30,15 +30,6 @@ jobs:
 
     - name: Install dotnet-ef tool
       run: dotnet tool install --global dotnet-ef --version 8.*
-      
-    - name: Verify dotnet-ef installation
-      run: |
-        echo "Checking for dotnet-ef tool..."
-        dotnet tool list --global
-        which dotnet-ef || echo "dotnet-ef not found"
-
-    - name: Display PATH
-      run: echo $PATH
 
     - name: Restore dependencies
       run: dotnet restore ChartCareMVC/ChartCareMVC.sln --use-lock-file
@@ -46,17 +37,26 @@ jobs:
     - name: Build
       run: dotnet build ChartCareMVC/ChartCareMVC.sln --no-restore
 
-    - name: Apply Database Migrations
-      env:
-        ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;'
-        PATH: $PATH:/root/.dotnet/tools  # Adjust PATH if needed
+    - name: Verify dotnet-ef installation
+      run: |
+        echo "Checking for dotnet-ef tool..."
+        dotnet tool list --global
+        which dotnet-ef || echo "dotnet-ef not found"
+        echo "PATH: $PATH"
+
+    - name: Check Project Files
       run: |
         echo "Current directory:"
         pwd
         echo "Listing files in ChartCareMVC directory:"
-        ls -R ChartCareMVC
-        dotnet ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
+        ls -R ChartCareMVC || echo "ls command not found"
 
+    - name: Apply Database Migrations
+      env:
+        ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;'
+      run: |
+        echo "Applying database migrations..."
+        dotnet /home/runner/.dotnet/tools/dotnet-ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
 
     - name: Run Tests
       env:
