@@ -36,7 +36,19 @@ jobs:
 
     - name: Build
       run: dotnet build ChartCareMVC/ChartCareMVC.sln --no-restore
-
+      
+    - name: Wait for SQL Server to be ready
+      run: |
+        echo "Waiting for SQL Server to be ready..."
+        for i in {1..30}; do
+          if /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -Q "SELECT 1" > /dev/null; then
+            echo "SQL Server is up and running."
+            break
+          fi
+          echo "SQL Server is still starting, waiting 5 seconds..."
+          sleep 5
+        done
+        
     - name: Apply Database Migrations
       env:
         ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;Encrypt=false;TrustServerCertificate=True;'
