@@ -31,6 +31,9 @@ jobs:
     - name: Install dotnet-ef tool
       run: dotnet tool install --global dotnet-ef --version 8.*
 
+    - name: Display PATH
+      run: echo $PATH
+
     - name: Restore dependencies
       run: dotnet restore ChartCareMVC/ChartCareMVC.sln --use-lock-file
 
@@ -40,8 +43,8 @@ jobs:
     - name: Apply Database Migrations
       env:
         ConnectionStrings__CompanyDbContextConnection: 'Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;'
-        PATH: ${{ github.env.PATH }}:${{ github.action_path }}/.dotnet/tools
-      run: dotnet-ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
+        PATH: $PATH:/root/.dotnet/tools  # Adjust PATH if needed
+      run: dotnet ef database update --project ChartCareMVC/ChartCareMVC.csproj --startup-project ChartCareMVC/ChartCareMVC.csproj
 
     - name: Run Tests
       env:
