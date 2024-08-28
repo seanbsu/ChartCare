@@ -29,7 +29,7 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Install dotnet-ef tool
-      run: dotnet tool install --global dotnet-ef
+      run: dotnet tool install --global dotnet-ef --version 8.*
 
     - name: Restore dependencies
       run: dotnet restore ChartCareMVC/ChartCareMVC.sln --use-lock-file
