@@ -19,6 +19,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ChartCareMVC.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ChartCareMVC.Data;
+using Microsoft.EntityFrameworkCore; 
 
 namespace ChartCareMVC.Areas.Identity.Pages.Account
 {
@@ -31,12 +35,15 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly CompanyDbContext _context;
+
         public RegisterModel(
             UserManager<CompanyUser> userManager,
             IUserStore<CompanyUser> userStore,
             SignInManager<CompanyUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            CompanyDbContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +51,7 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -90,6 +98,18 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             [Display(Name = "Password")]
             public string Password { get; set; }
 
+            [Required]
+            [Display(Name = "Company Name")]
+            public string CompanyName {  get; set; }
+
+            [Required]
+            [Display(Name = "Address")]
+            public string CompanyAddress { get; set; }
+
+            [Required]
+            [Display(Name = "Pricing Plan")]
+            public int PricingPlanID { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -98,6 +118,8 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
         }
 
 
@@ -105,6 +127,8 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var PricingPlans = await _context.PricingPlans.ToListAsync();
+            ViewData["PricingPlans"] = PricingPlans;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -113,7 +137,29 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                var pricingPlan = await _context.PricingPlans.FindAsync(Input.PricingPlanID);
+                if (pricingPlan == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid pricing plan selected.");
+                    return Page();
+                }
+
+                var company = new Company
+                {
+                    Name = Input.CompanyName,
+                    Address = Input.CompanyAddress,
+                    Email = Input.Email,
+                    PricingPlan = pricingPlan 
+                };
+                
+                _context.Companies.Add(company);
+                await _context.SaveChangesAsync();
+
                 var user = CreateUser();
+
+                user.FirstName = Input.CompanyName;
+                user.LastName = "ADMIN";
+                user.CompanyID = company.ID;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -129,7 +175,7 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl, role=RoleConstants.Admin },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
@@ -149,9 +195,16 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+                
+                _context.Companies.Remove(company);
+                await _context.SaveChangesAsync();
+                await _userManager.DeleteAsync(user);
+
             }
 
             // If we got this far, something failed, redisplay form
+            var PricingPlans = await _context.PricingPlans.ToListAsync();
+            ViewData["PricingPlans"] = PricingPlans;
             return Page();
         }
 

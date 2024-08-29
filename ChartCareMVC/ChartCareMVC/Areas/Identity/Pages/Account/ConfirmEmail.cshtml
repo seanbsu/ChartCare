@@ -1,0 +1,25 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Confirm Email";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="form-signin border p-4 rounded shadow align-content-center">
+        <div class="text-center mb-4">
+            <h1>@(Model.IsSuccess ? "Email Confirmation Success" : "Email Confirmation Failed")</h1>
+        </div>
+
+        <div class="text-center mb-4">
+            <partial name="_StatusMessage" model="Model.StatusMessage" />
+
+            @if (!Model.IsSuccess)
+            {
+                <form method="post" asp-page-handler="ResendEmail">
+                    <input type="hidden" name="userId" value="@Request.Query["userId"]" />
+                    <button type="submit" class="btn resend-btn">Resend Email</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

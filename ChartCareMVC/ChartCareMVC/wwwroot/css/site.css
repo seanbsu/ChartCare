@@ -119,3 +119,12 @@ header, footer {
     color: grey;
     font-size:16px;
 }
+
+.resend-btn {
+    background-color: forestgreen;
+    color: white;
+}
+.resend-btn:hover{
+    opacity: 0.6;
+    color:white;
+}

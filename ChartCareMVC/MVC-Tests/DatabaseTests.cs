@@ -1,22 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Xunit;
-using System.Linq;
 using ChartCareMVC.Areas.Identity.Data;
 using ChartCareMVC.Data;
 using ChartCareMVC.Models;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using ChartCareMVC.Areas.Identity.Pages.Account;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Routing;
+
 
 namespace MVC_Tests
 {
-    public class DatabaseTests
+    public class DatabaseTests : TestHelpers
     {
-        private DbContextOptions<CompanyDbContext> CreateNewContextOptions()
-        {
-            // Create a new instance of the options each time
-            return new DbContextOptionsBuilder<CompanyDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
-        }
+       
+
+
+
+
 
         [Fact]
         public void TestAddCompany()
@@ -163,5 +173,13 @@ namespace MVC_Tests
                 context.SaveChanges();
             }
         }
+
+
+
+
+
+
+
+
     }
 }
