@@ -15,6 +15,8 @@ public class CompanyDbContext : IdentityDbContext<CompanyUser>
 
     public DbSet<Company> Companies { get; set; }
     public DbSet<PricingPlan> PricingPlans { get; set; }
+    public DbSet<Features> Features { get; set; }  // Added
+    public DbSet<PlanFeatures> PlanFeatures { get; set; }  // Added
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -24,19 +26,35 @@ public class CompanyDbContext : IdentityDbContext<CompanyUser>
         // Add your customizations after calling base.OnModelCreating(builder);
         builder.Entity<Company>().ToTable("Company");
         builder.Entity<PricingPlan>().ToTable("Pricing_Plan");
+        builder.Entity<Features>().ToTable("Features");
+        builder.Entity<PlanFeatures>().ToTable("PlanFeatures");
+
 
         builder.Entity<CompanyUser>()
-        .HasOne(u => u.Company)
-        .WithMany(c => c.CompanyUsers)
-        .HasForeignKey(u => u.CompanyID) // Make sure this matches the column name in AspNetUsers
-        .OnDelete(DeleteBehavior.Cascade);
+            .HasOne(companyUser => companyUser.Company)
+            .WithMany(company => company.CompanyUsers)
+            .HasForeignKey(companyUser => companyUser.CompanyID)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<PlanFeatures>()
+            .HasKey(planFeature => new { planFeature.PlanId, planFeature.FeatureId });
+
+        builder.Entity<PlanFeatures>()
+            .HasOne(planFeature => planFeature.PricingPlan)
+            .WithMany(pricingPlan => pricingPlan.PlanFeatureLinks)
+            .HasForeignKey(planFeature => planFeature.PlanId);
+
+        builder.Entity<PlanFeatures>()
+            .HasOne(planFeature => planFeature.Feature)
+            .WithMany(feature => feature.PlanFeatureLinks)
+            .HasForeignKey(planFeature => planFeature.FeatureId);
 
         builder.Entity<PricingPlan>()
-        .Property(p => p.PlanName)
-        .HasConversion(
-            v => (int)v, 
-            v => (Plan)v 
-        );
+            .Property(pricingPlan => pricingPlan.PlanName)
+            .HasConversion(
+                plan => (int)plan,
+                value => (Plan)value
+            );
 
         builder.Entity<PricingPlan>().HasData(
         new PricingPlan { ID = 1, PlanName = Plan.Free, PlanNameString = "Free", PlanPrice = 0.00f },
