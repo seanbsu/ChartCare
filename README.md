@@ -15,3 +15,10 @@ ChartCare is an online patient charting system designed to be used in the browse
 - Create new employee accounts to grant access to the system
 
 For a more in-depth technical overview of the project, see the [Technical Overview](./docs/TechnicalOverview.md) document.
+
+## Project Setup
+Setting up ChartCare is straightforward, with just a few steps required to get the application running in your local development environment. To get started, you'll need to:
+- Update the connection string in *appsettings.json* to connect to your local SQL Server instance.
+- Configure the SMTP settings in *secrets.json*.
+
+For a more in-depth technical overview of the stup poccess, see the [Project Setup](./docs/ProjectSetup.md) document.
