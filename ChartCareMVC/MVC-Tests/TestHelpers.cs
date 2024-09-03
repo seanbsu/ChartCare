@@ -35,7 +35,7 @@ namespace MVC_Tests
             }
         }
 
-        protected Mock<IUrlHelper> CreateMockUrlHelper(ActionContext context = null)
+        protected Mock<IUrlHelper> CreateMockUrlHelper(ActionContext? context = null)
         {
             context ??= GetActionContextForPage("/Page");
 
