@@ -14,13 +14,14 @@ namespace ChartCareMVC.Models
         public required string Name { get; set; }
         [Required]
         public required string Address { get; set; }
+        [Required]
         public int PlanID { get; set; }
         [Required]
         public required string  Email { get; set; }
 
-        [Required]
-        public required PricingPlan PricingPlan { get; set; }
+        [ForeignKey(nameof(PlanID))]
+        public virtual PricingPlan PricingPlan { get; set; } = null!;
         
-        public  ICollection<CompanyUser> CompanyUsers { get; set; } = new List<CompanyUser>();
+        public virtual ICollection<CompanyUser> CompanyUsers { get; set; } = new List<CompanyUser>();
     }
 }
