@@ -40,7 +40,7 @@ namespace MVC_Tests
                 {
                     Name = "Test Company",
                     Address = "123 Test St",
-                    PlanID = 1,
+                    PricingPlanID = 1,
                     Email = "test@company.com",
                     PricingPlan = new PricingPlan { ID = 1, PlanName = Plan.Free, PlanNameString = "Free", PlanPrice = 0.00f },
                     CompanyUsers = new List<CompanyUser>()
@@ -75,7 +75,7 @@ namespace MVC_Tests
                 {
                     Name = "Test Company",
                     Address = "123 Test St",
-                    PlanID = 1,
+                    PricingPlanID = 1,
                     Email = "test@company.com",
                     PricingPlan = new PricingPlan { ID = 1, PlanName = Plan.Free, PlanNameString = "Free", PlanPrice = 0.00f },
                     CompanyUsers = new List<CompanyUser>()
@@ -129,7 +129,7 @@ namespace MVC_Tests
                 {
                     Name = "Test Company",
                     Address = "123 Test St",
-                    PlanID = 1,
+                    PricingPlanID = 1,
                     Email = "test@company.com",
                     PricingPlan = new PricingPlan { ID = 1, PlanName = Plan.Free, PlanNameString = "Free", PlanPrice = 0.00f },
                     CompanyUsers = new List<CompanyUser>()
