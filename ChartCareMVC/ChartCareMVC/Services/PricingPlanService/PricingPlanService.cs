@@ -53,5 +53,32 @@ namespace ChartCareMVC.Services.PricingPlanService
             };
         }
 
+        public async Task<Result<List<Features>>> GetPlanFeatures(string planName)
+        {
+            try
+            {
+                var plan = await _dbContext.PricingPlans
+                    .Include(plan => plan.PlanFeatureLinks)
+                    .ThenInclude(planFeatures => planFeatures.Feature)
+                    .FirstOrDefaultAsync(plan => plan.PlanNameString == planName);
+                if (plan == null)
+                {
+                    return new Result<List<Features>>
+                    {
+                        Success = false,
+                        ErrorMessage = "Plan not found"
+                    };
+                }
+                var features = plan.PlanFeatureLinks.Select(planFeatures => planFeatures.Feature).ToList();
+                return new Result<List<Features>> { Success = true, Data = features };
+            }
+            catch (Exception ex) 
+            { 
+                return new Result<List<Features>> { 
+                    Success = false,
+                    ErrorMessage = ex.Message };
+            }
+        }
+
     }
 }
