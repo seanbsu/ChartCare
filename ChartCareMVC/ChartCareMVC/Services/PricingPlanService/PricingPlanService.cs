@@ -86,5 +86,59 @@ namespace ChartCareMVC.Services.PricingPlanService
             }
         }
 
+        public async Task<Result<Dictionary<string, List<Features>>>> GetAllPlansWithFeaturesAsync()
+        {
+            try
+            {
+                // Retrieve all pricing plans
+                var plansResult = await GetPricingPlansAsync();
+                if (!plansResult.Success || plansResult.Data == null)
+                {
+                    return new Result<Dictionary<string, List<Features>>>
+                    {
+                        Success = false,
+                        ErrorMessage = "Failed to retrieve pricing plans or no plans found."
+                    };
+                }
+
+                var allPlans = plansResult.Data;
+                var result = new Dictionary<string, List<Features>>();
+
+                foreach (var plan in allPlans)
+                {
+                    if (plan == null) continue;
+
+                    var featuresResult = await GetPlanFeaturesAsync(plan.PlanNameString);
+                    if (featuresResult.Success && featuresResult.Data != null)
+                    {
+                        result[plan.PlanNameString] = featuresResult.Data;
+                    }
+                    else
+                    {
+                        return new Result<Dictionary<string, List<Features>>>
+                        {
+                            Success = false,
+                            ErrorMessage = $"Failed to retrieve features for plan: {plan.PlanNameString}"
+                        };
+                    }
+                }
+
+                return new Result<Dictionary<string, List<Features>>>
+                {
+                    Success = true,
+                    Data = result
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Result<Dictionary<string, List<Features>>>
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                };
+            }
+        }
+
+
     }
 }
