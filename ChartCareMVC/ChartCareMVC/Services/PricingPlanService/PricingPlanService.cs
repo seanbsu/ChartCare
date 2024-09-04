@@ -53,7 +53,7 @@ namespace ChartCareMVC.Services.PricingPlanService
             };
         }
 
-        public async Task<Result<List<Features>>> GetPlanFeatures(string planName)
+        public async Task<Result<List<Features>>> GetPlanFeaturesAsync(string planName)
         {
             try
             {
@@ -70,13 +70,19 @@ namespace ChartCareMVC.Services.PricingPlanService
                     };
                 }
                 var features = plan.PlanFeatureLinks.Select(planFeatures => planFeatures.Feature).ToList();
-                return new Result<List<Features>> { Success = true, Data = features };
+                return new Result<List<Features>> 
+                { 
+                    Success = true, 
+                    Data = features 
+                };
             }
             catch (Exception ex) 
             { 
-                return new Result<List<Features>> { 
+                return new Result<List<Features>> 
+                { 
                     Success = false,
-                    ErrorMessage = ex.Message };
+                    ErrorMessage = ex.Message 
+                };
             }
         }
 
