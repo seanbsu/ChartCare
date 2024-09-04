@@ -350,7 +350,32 @@ namespace MVC_Tests
             }
         }
 
+        [Fact]
+        public async Task TestGetPricingPlansByIDAsync()
+        {
+            // Arrange
+            var serviceProvider = ConfigureServices(); // Configure DI
 
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var serviceProviderInScope = scope.ServiceProvider;
+
+                // Seed the database
+                SeedDatabase(serviceProviderInScope);
+
+                // Resolve the service you want to test
+                var pricingPlanService = serviceProviderInScope.GetRequiredService<IPricingPlanService>();
+
+                // Act
+                var result = await pricingPlanService.GetPricingPlanByIdAsync(1);
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.True(result.Success);
+                Assert.NotNull(result.Data);
+                Assert.Equal("Free", result.Data.PlanNameString);
+            }
+        }
 
 
 
