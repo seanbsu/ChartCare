@@ -247,6 +247,27 @@ namespace MVC_Tests
             }
         }
 
+        [Fact]
+        public async Task TestGetAllPlansWithFeaturesAsync()
+        {
+            //Arrange
+            var serviceProvider = ConfigureServices();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var serviceProviderInScope = scope.ServiceProvider;
+                SeedDatabase(serviceProviderInScope);
+
+                var pricingPlanService = serviceProviderInScope.GetRequiredService<IPricingPlanService>();
+                //Act
+                var result = await pricingPlanService.GetAllPlansWithFeaturesAsync();
+                //Assert
+                Assert.NotNull(result);
+                Assert.True(result.Success);
+                Assert.NotNull(result.Data);
+
+            }
+        }
+
 
 
     }
