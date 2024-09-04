@@ -60,8 +60,52 @@ namespace MVC_Tests
                             ID = 3,
                             Name = "Employee Count Premium",
                             Description = "No limit on employee accounts created for your organization"
-                        }
-                    // Add other features as needed
+                        },
+                        new Features
+                        {
+                            ID = 4,
+                            Name = "Real Time Charting",
+                            Description = "Instantly updates patient charts with live data, ensuring that any modifications or new entries are reflected across all connected devices without delay. "
+                        },
+                        new Features
+                        {
+                            ID = 5,
+                            Name = "Patient Workload Customization",
+                            Description = "Ability to create a personalized list of patients for each company user"
+                        },
+                        new Features
+                        {
+                            ID = 6,
+                            Name = "Basic Analytics",
+                            Description = "Provides essential insights into patient data through simple, easy-to-understand visualizations and reports. Metrics include:" +
+                              " Patient Visit Frequency," +
+                              " Patient Demographics," +
+                              " Treatment Success Rates," +
+                              " Average Length of Stay," +
+                              " Medication Adherence,"
+                        },
+                         new Features
+                         {
+                             ID = 7,
+                             Name = "Advanced Analytics",
+                             Description = "Provides additional insights into patient data through simple, easy-to-understand visualizations and reports. Metrics include:" +
+                              " Cost-Per-Treatment Analysis," +
+                              " Longitudinal Patient Progress Tracking," +
+                              " Readmission Rates," +
+                              " Patient Satisfaction Scores"
+                         },
+                         new Features
+                         {
+                             ID = 8,
+                             Name = "Automated Notifications",
+                             Description = "Automatically sends alerts and reminders to users about important events, such as upcoming appointments, medication schedules, and critical patient status changes."
+                         },
+                         new Features
+                         {
+                             ID = 9,
+                             Name = "Priority Support",
+                             Description = "Gives access to priority customer support with faster response times, ensuring any issues or inquiries are addressed promptly."
+                         }
                     );
                 }
                 if (!context.PlanFeatures.Any())
