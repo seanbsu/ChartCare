@@ -86,7 +86,7 @@ namespace ChartCareMVC.Services.PricingPlanService
             }
         }
 
-        public async Task<Result<Dictionary<string, List<Features>>>> GetAllPlansWithFeaturesAsync()
+        public async Task<Result<Dictionary<PricingPlan, List<Features>>>> GetAllPlansWithFeaturesAsync()
         {
             try
             {
@@ -94,7 +94,7 @@ namespace ChartCareMVC.Services.PricingPlanService
                 var plansResult = await GetPricingPlansAsync();
                 if (!plansResult.Success || plansResult.Data == null)
                 {
-                    return new Result<Dictionary<string, List<Features>>>
+                    return new Result<Dictionary<PricingPlan, List<Features>>>
                     {
                         Success = false,
                         ErrorMessage = "Failed to retrieve pricing plans or no plans found."
@@ -102,7 +102,7 @@ namespace ChartCareMVC.Services.PricingPlanService
                 }
 
                 var allPlans = plansResult.Data;
-                var result = new Dictionary<string, List<Features>>();
+                var result = new Dictionary<PricingPlan, List<Features>>();
 
                 foreach (var plan in allPlans)
                 {
@@ -111,11 +111,11 @@ namespace ChartCareMVC.Services.PricingPlanService
                     var featuresResult = await GetPlanFeaturesAsync(plan.PlanNameString);
                     if (featuresResult.Success && featuresResult.Data != null)
                     {
-                        result[plan.PlanNameString] = featuresResult.Data;
+                        result[plan] = featuresResult.Data;
                     }
                     else
                     {
-                        return new Result<Dictionary<string, List<Features>>>
+                        return new Result<Dictionary<PricingPlan, List<Features>>>
                         {
                             Success = false,
                             ErrorMessage = $"Failed to retrieve features for plan: {plan.PlanNameString}"
@@ -123,7 +123,7 @@ namespace ChartCareMVC.Services.PricingPlanService
                     }
                 }
 
-                return new Result<Dictionary<string, List<Features>>>
+                return new Result<Dictionary<PricingPlan, List<Features>>>
                 {
                     Success = true,
                     Data = result
@@ -131,7 +131,7 @@ namespace ChartCareMVC.Services.PricingPlanService
             }
             catch (Exception ex)
             {
-                return new Result<Dictionary<string, List<Features>>>
+                return new Result<Dictionary<PricingPlan, List<Features>>>
                 {
                     Success = false,
                     ErrorMessage = ex.Message

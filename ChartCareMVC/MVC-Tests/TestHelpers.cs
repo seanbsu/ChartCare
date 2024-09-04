@@ -47,24 +47,28 @@ namespace MVC_Tests
                         {
                             ID = 1,
                             Name = "Employee Count Free",
-                            Description = "Create up to 50 employee accounts for your organization"
+                            Description = "Create up to 50 employee accounts for your organization",
+                            AbbreviatedDescription = "Create up to 50 employee accounts"
                         },
                         new Features
                         {
                             ID = 2,
                             Name = "Employee Count Standard",
-                            Description = "Create up to 500 employee accounts for your organization"
+                            Description = "Create up to 500 employee accounts for your organization",
+                            AbbreviatedDescription = "Create up to 500 employee accounts"
                         },
                         new Features
                         {
                             ID = 3,
                             Name = "Employee Count Premium",
-                            Description = "No limit on employee accounts created for your organization"
+                            Description = "No limit on employee accounts created for your organization",
+                            AbbreviatedDescription = "No limit on employee accounts created"
                         },
                         new Features
                         {
                             ID = 4,
-                            Name = "Real Time Charting",
+                            Name =
+                            "Real Time Charting",
                             Description = "Instantly updates patient charts with live data, ensuring that any modifications or new entries are reflected across all connected devices without delay. "
                         },
                         new Features
