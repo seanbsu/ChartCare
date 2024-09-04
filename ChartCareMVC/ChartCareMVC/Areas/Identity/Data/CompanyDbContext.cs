@@ -93,19 +93,22 @@ public class CompanyDbContext : IdentityDbContext<CompanyUser>
             {
                 ID = 1,
                 Name = "Employee Count Free",
-                Description = "Create up to 50 employee accounts for your organization"
+                Description = "Create up to 50 employee accounts for your organization",
+                AbbreviatedDescription = "Create up to 50 employee accounts"
             },
             new Features
             {
                 ID = 2,
                 Name = "Employee Count Standard",
-                Description = "Create up to 500 employee accounts for your organization"
+                Description = "Create up to 500 employee accounts for your organization",
+                AbbreviatedDescription = "Create up to 500 employee accounts"
             },
             new Features
             {
                 ID = 3,
                 Name = "Employee Count Premium",
-                Description = "No limit on employee accounts created for your organization"
+                Description = "No limit on employee accounts created for your organization",
+                AbbreviatedDescription = "No limit on employee accounts created"
             },
             new Features
             {
@@ -153,7 +156,7 @@ public class CompanyDbContext : IdentityDbContext<CompanyUser>
                  Name = "Priority Support",
                  Description = "Gives access to priority customer support with faster response times, ensuring any issues or inquiries are addressed promptly."
              }
-        );
+        ); 
         builder.Entity<PlanFeatures>().HasData(
             new PlanFeatures { FeatureId = 1, PlanId = 1 },
             new PlanFeatures { FeatureId = 4, PlanId = 1 },
