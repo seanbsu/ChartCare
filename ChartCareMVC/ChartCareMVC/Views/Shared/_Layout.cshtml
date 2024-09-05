@@ -20,14 +20,14 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-right mb-md-0 nav-link-color">
             <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 link-secondary">Home</a></li>
             <li><a href="#" class="nav-link px-2">Features</a></li>
-            <li><a href="#" class="nav-link px-2">Pricing</a></li>
+            <li><a asp-controller="Home" asp-action="Pricing" class="nav-link px-2">Pricing</a></li>
             <li><a href="#" class="nav-link px-2">FAQs</a></li>
             <li><a href="#" class="nav-link px-2">About</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
-            <a href="/Identity/Account/Login" class="btn btn-outline-light me-2 login-btn">Login</a>
-            <a class="btn btn-dark" id="sign-up-btn" href="/Identity/Account/Register">Sign-up</a>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light me-2 login-btn">Login</a>
+            <a asp-area="Identity" asp-page="/Account/Register"  class="btn btn-dark" id="sign-up-btn" >Sign-up</a>
         </div>
 
     </header>
@@ -44,7 +44,7 @@
         <ul class="nav col-md-4 justify-content-end footer-link">
             <li class="nav-item"><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-body-secondary">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+            <li class="nav-item"><a asp-controller="Home" asp-action="Pricing" class="nav-link px-2 text-body-secondary">Pricing</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
         </ul>

@@ -21,5 +21,19 @@ namespace ChartCareMVC.Models
         
         public virtual ICollection<Company>? Companies { get; set; }
         public virtual ICollection<PlanFeatures> PlanFeatureLinks { get; set; } = new List<PlanFeatures>();
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is PricingPlan other)
+            {
+                return ID == other.ID;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
     }
 }

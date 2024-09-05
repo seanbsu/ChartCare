@@ -6,6 +6,7 @@ using ChartCareMVC.Areas.Identity.Data;
 using ChartCareMVC.Configurations;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using ChartCareMVC.Services;
+using ChartCareMVC.Services.PricingPlanService;
 
 
 
@@ -26,8 +27,9 @@ builder.Services.AddRazorPages();
 // Register SmtpSettings as a singleton service
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
-// Register EmailSender with the DI container
+// Register Services
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IPricingPlanService, PricingPlanService>();
 
 var app = builder.Build();
 
