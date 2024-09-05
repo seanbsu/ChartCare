@@ -90,7 +90,6 @@ namespace ChartCareMVC.Services.PricingPlanService
         {
             try
             {
-                // Retrieve all pricing plans
                 var plansResult = await GetPricingPlansAsync();
                 if (!plansResult.Success || plansResult.Data == null)
                 {
