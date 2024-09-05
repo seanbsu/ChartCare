@@ -139,6 +139,56 @@ namespace ChartCareMVC.Services.PricingPlanService
             }
         }
 
+        public Result<Dictionary<PricingPlan, List<Features>>> GetCascadedPlansWithFeatures(Dictionary<PricingPlan, List<Features>> plansWithFeatures)
+        {
+            try
+            {
+                if (plansWithFeatures == null || !plansWithFeatures.Any())
+                {
+                    return new Result<Dictionary<PricingPlan, List<Features>>> { Success = false, ErrorMessage = "No plans available." };
+                }
+
+                var allFeatures = plansWithFeatures
+                    .SelectMany(plan => plan.Value)
+                    .Distinct()
+                    .ToList();
+
+                var orderedPlans = plansWithFeatures
+                    .OrderBy(p => p.Key.ID)
+                    .ToList();
+
+                var cascadedPlans = new Dictionary<PricingPlan, List<Features>>();
+
+                foreach (var plan in orderedPlans)
+                {
+                    var currentPlanFeatures = new List<Features>(plan.Value);
+                    cascadedPlans.Add(plan.Key, currentPlanFeatures);
+                }
+
+                for (int i = 1; i < orderedPlans.Count; i++)
+                {
+                    var lowerPlanFeatures = cascadedPlans[orderedPlans[i - 1].Key];
+                    var currentPlanFeatures = cascadedPlans[orderedPlans[i].Key];
+
+                    foreach (var feature in lowerPlanFeatures)
+                    {
+                        if (!feature.Description.Contains("employee accounts") &&
+                            !currentPlanFeatures.Any(existingFeature => existingFeature.ID == feature.ID))
+                        {
+                            currentPlanFeatures.Add(feature);
+                        }
+                    }
+                }
+
+                return new Result<Dictionary<PricingPlan, List<Features>>> { Success = true, Data = cascadedPlans };
+            }
+            catch (Exception ex)
+            {
+                return new Result<Dictionary<PricingPlan, List<Features>>> { Success = false, ErrorMessage = $"An error occurred: {ex.Message}" };
+            }
+        }
+
+
 
     }
 }

@@ -9,5 +9,6 @@ namespace ChartCareMVC.Services.PricingPlanService
         Task<Result<PricingPlan>> GetPricingPlanByIdAsync(int id);
         Task<Result<List<Features>>> GetPlanFeaturesAsync(string planName);
         Task<Result<Dictionary<PricingPlan, List<Features>>>> GetAllPlansWithFeaturesAsync();
+        Result<Dictionary<PricingPlan, List<Features>>> GetCascadedPlansWithFeatures(Dictionary<PricingPlan, List<Features>> plansWithFeatures);
     }
 }
