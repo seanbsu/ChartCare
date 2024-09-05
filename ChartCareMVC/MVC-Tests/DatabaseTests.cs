@@ -235,14 +235,52 @@ namespace MVC_Tests
             {
                 var serviceProviderInScope = scope.ServiceProvider;
                 SeedDatabase(serviceProviderInScope);
-
+                var context = serviceProviderInScope.GetService<CompanyDbContext>();
+                if (context == null)
+                {
+                    Assert.Fail("DB context was null check configuration in ConfigureServices helper");
+                }
                 var pricingPlanService = serviceProviderInScope.GetRequiredService<IPricingPlanService>();
                 //Act
                 var result = await pricingPlanService.GetPlanFeaturesAsync("Free");
+                var expectedResult = context.PricingPlans
+                                    .Where(pp => pp.PlanNameString == "Free")
+                                    .GroupJoin(context.PlanFeatures,
+                                        pp => pp.ID,
+                                        pf => pf.PlanId,
+                                        (pp, planFeaturesGroup) => new { pp, planFeaturesGroup })
+                                    .SelectMany(
+                                        x => x.planFeaturesGroup.DefaultIfEmpty(),
+                                        (x, planFeatures) => new { x.pp, planFeatures })
+                                    .GroupJoin(context.Features,
+                                        pf => pf.planFeatures != null ? pf.planFeatures.FeatureId : 0,
+                                        f => f.ID,
+                                        (pf, featuresGroup) => new { pf.pp, pf.planFeatures, featuresGroup })
+                                    .SelectMany(
+                                        x => x.featuresGroup.DefaultIfEmpty(),
+                                        (x, feature) => new
+                                        {
+                                            PlanNameString = x.pp.PlanNameString,
+                                            PlanPrice = x.pp.PlanPrice,
+                                            FeatureName = feature != null ? feature.Name : null,
+                                            FeatureDescription = feature != null ? feature.Description : null
+                                        })
+                                    .OrderBy(x => x.PlanNameString)
+                                    .ToList();
+
                 //Assert
                 Assert.NotNull(result);
                 Assert.True(result.Success);
                 Assert.NotNull(result.Data);
+                Assert.Equal(expectedResult.Count, result.Data.Count);
+                for (int i = 0; i < expectedResult.Count; i++)
+                {
+                    var expected = expectedResult[i];
+                    var actual = result.Data[i];
+
+                    Assert.Equal(expected.FeatureName, actual.Name);
+                    Assert.Equal(expected.FeatureDescription, actual.Description);
+                }
 
             }
         }
