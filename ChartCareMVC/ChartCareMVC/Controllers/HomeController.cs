@@ -39,49 +39,25 @@ namespace ChartCareMVC.Controllers
             ViewData["Title"] = "Pricing";
 
             var allPlansResult = await _pricingPlanService.GetAllPlansWithFeaturesAsync();
-
-            //if (allPlansResult.Success)
-            //{
-            //    if (allPlansResult.Data != null)
-            //    {
-            //        var cascadedPlansResult = _pricingPlanService.GetCascadedPlansWithFeatures(allPlansResult.Data);
-            //        if (cascadedPlansResult.Success)
-            //        {
-            //            ViewData["CascadedPlans"] = cascadedPlansResult.Data;
-            //        }
-            //        else
-            //        {
-            //            _logger.LogError("Failed to retrieve ordered pricing plans: {ErrorMessage}", cascadedPlansResult.ErrorMessage);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        _logger.LogError("Retrieved pricing plans data is null.");
-            //    }
-
-            //    ViewData["Plans"] = allPlansResult.Data;
-            //}
-            //else
-            //{
-            //    _logger.LogError("Failed to retrieve pricing plans: {ErrorMessage}", allPlansResult.ErrorMessage);
-            //}
-
             if (!allPlansResult.Success)
             {
                 _logger.LogError("Failed to retrieve pricing plans: {ErrorMessage}", allPlansResult.ErrorMessage);
-                Error();
+                return Error();
             }
+
             if(allPlansResult.Data == null )
             {
                 _logger.LogError("Retrieved pricing plans data is null.");
-                Error();
+                return Error();
             }
+
             var cascadedPlansResult = _pricingPlanService.GetCascadedPlansWithFeatures(allPlansResult.Data);
             if (!cascadedPlansResult.Success)
             {
                 _logger.LogError("Failed to retrieve ordered pricing plans: {ErrorMessage}", cascadedPlansResult.ErrorMessage);
-                Error();
+                return Error();
             }
+
             ViewData["Plans"] = allPlansResult.Data;
             ViewData["CascadedPlans"] = cascadedPlansResult.Data;
             return View();
