@@ -306,6 +306,97 @@ namespace MVC_Tests
             }
         }
 
+        [Fact]
+        public async Task TestGetCascadedPlansWithFeatures()
+        {
+            // Arrange
+            var serviceProvider = ConfigureServices();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var serviceProviderInScope = scope.ServiceProvider;
+                SeedDatabase(serviceProviderInScope);
+                var pricingPlanService = serviceProviderInScope.GetRequiredService<IPricingPlanService>();
+
+                // Act
+                var plansWithFeatures = await pricingPlanService.GetAllPlansWithFeaturesAsync();
+                if (plansWithFeatures.Data == null)
+                {
+                    Assert.Fail("Error with GetAllPlansWithFeaturesAsync. Consider adding more tests for that method");
+                }
+
+                var result = pricingPlanService.GetCascadedPlansWithFeatures(plansWithFeatures.Data);
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.True(result.Success);
+                Assert.NotNull(result.Data);
+
+                // Build the expected result
+                var context = serviceProviderInScope.GetRequiredService<CompanyDbContext>();
+                var allFeatures = context.Features.ToList();
+
+                var expected = context.PricingPlans
+                    .Include(pp => pp.PlanFeatureLinks)
+                        .ThenInclude(pf => pf.Feature)
+                    .OrderBy(pp => pp.ID)
+                    .ToDictionary(
+                        pp => pp,
+                        pp => pp.PlanFeatureLinks
+                            .Select(pf => pf.Feature)
+                            .ToList()
+                    );
+
+                // Create cascaded expected result
+                var cascadedExpected = new Dictionary<PricingPlan, List<Features>>();
+                foreach (var plan in expected.Keys.OrderBy(p => p.ID))
+                {
+                    var features = new List<Features>();
+                    foreach (var kvp in expected)
+                    {
+                        if (kvp.Key.ID <= plan.ID)
+                        {
+                            var filteredFeatures = kvp.Value
+                                .Where(f => !f.Description.Contains("employee accounts"))
+                                .ToList();
+                            features.AddRange(filteredFeatures);
+                        }
+                    }
+
+                    // Add unique features for the current plan
+                    var uniqueFeatures = expected[plan]
+                        .Where(f => f.Description.Contains("employee accounts"))
+                        .ToList();
+                    features.AddRange(uniqueFeatures);
+
+                    // Ensure unique features in the final list
+                    features = features.Distinct().ToList();
+                    cascadedExpected[plan] = features;
+                }
+
+                // Compare the actual result with the expected result
+                Assert.Equal(cascadedExpected.Count, result.Data.Count);
+                foreach (var kvp in cascadedExpected)
+                {
+                    var actualList = result.Data[kvp.Key];
+                    var expectedList = kvp.Value;
+
+                    Assert.Equal(expectedList.Count, actualList.Count);
+
+                    // Compare individual feature properties
+                    foreach (var expectedFeature in expectedList)
+                    {
+                        //    Assert.Contains(actualList, feature =>
+                        //feature.Name == expectedFeature.Name &&
+                        //feature.Description == expectedFeature.Description &&
+                        //feature.AbbreviatedDescription == expectedFeature.AbbreviatedDescription);
+                        Assert.Contains(expectedFeature, actualList);
+
+                    }
+                }
+            }
+        }
+
+
 
 
     }
