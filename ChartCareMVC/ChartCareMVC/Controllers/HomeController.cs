@@ -1,4 +1,5 @@
 using ChartCareMVC.Models;
+using ChartCareMVC.Services;
 using ChartCareMVC.Services.PricingPlanService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
@@ -31,21 +32,42 @@ namespace ChartCareMVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        } 
-        
+        }
+
         public async Task<IActionResult> Pricing()
         {
             ViewData["Title"] = "Pricing";
-            var result = await _pricingPlanService.GetAllPlansWithFeaturesAsync();
-            if (result.Success)
+
+            var allPlansResult = await _pricingPlanService.GetAllPlansWithFeaturesAsync();
+
+            if (allPlansResult.Success)
             {
-                ViewData["Plans"] = result.Data;
+                if (allPlansResult.Data != null)
+                {
+                    var cascadedPlansResult = _pricingPlanService.GetCascadedPlansWithFeatures(allPlansResult.Data);
+                    if (cascadedPlansResult.Success)
+                    {
+                        ViewData["CascadedPlans"] = cascadedPlansResult.Data;
+                    }
+                    else
+                    {
+                        _logger.LogError("Failed to retrieve ordered pricing plans: {ErrorMessage}", cascadedPlansResult.ErrorMessage);
+                    }
+                }
+                else
+                {
+                    _logger.LogError("Retrieved pricing plans data is null.");
+                }
+
+                ViewData["Plans"] = allPlansResult.Data;
             }
             else
             {
-                _logger.LogError("Failed to retrieve pricing plans: {ErrorMessage}", result.ErrorMessage);
+                _logger.LogError("Failed to retrieve pricing plans: {ErrorMessage}", allPlansResult.ErrorMessage);
             }
+
             return View();
         }
+
     }
 }
