@@ -14,5 +14,21 @@ namespace ChartCareMVC.Models
         public  string? AbbreviatedDescription { get; set; }
 
         public virtual ICollection<PlanFeatures> PlanFeatureLinks { get; set; } = null!;
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Features other)
+            {
+                return Name == other.Name &&
+                       Description == other.Description &&
+                       AbbreviatedDescription == other.AbbreviatedDescription;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Description, AbbreviatedDescription);
+        }
     }
 }
