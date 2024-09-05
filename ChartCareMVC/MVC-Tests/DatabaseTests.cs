@@ -113,7 +113,7 @@ namespace MVC_Tests
                 Assert.Equal("test@company.com", addedCompanyAdmin.Email);
                 Assert.Equal(addedCompany.ID, addedCompanyAdmin.CompanyID);
 
-                // Cleanup
+                
                 context.Companies.Remove(addedCompany);
                 context.SaveChanges();
             }
@@ -331,7 +331,6 @@ namespace MVC_Tests
                 Assert.True(result.Success);
                 Assert.NotNull(result.Data);
 
-                // Build the expected result
                 var context = serviceProviderInScope.GetRequiredService<CompanyDbContext>();
                 var allFeatures = context.Features.ToList();
 
@@ -346,7 +345,6 @@ namespace MVC_Tests
                             .ToList()
                     );
 
-                // Create cascaded expected result
                 var cascadedExpected = new Dictionary<PricingPlan, List<Features>>();
                 foreach (var plan in expected.Keys.OrderBy(p => p.ID))
                 {
@@ -362,18 +360,15 @@ namespace MVC_Tests
                         }
                     }
 
-                    // Add unique features for the current plan
                     var uniqueFeatures = expected[plan]
                         .Where(f => f.Description.Contains("employee accounts"))
                         .ToList();
                     features.AddRange(uniqueFeatures);
 
-                    // Ensure unique features in the final list
                     features = features.Distinct().ToList();
                     cascadedExpected[plan] = features;
                 }
 
-                // Compare the actual result with the expected result
                 Assert.Equal(cascadedExpected.Count, result.Data.Count);
                 foreach (var kvp in cascadedExpected)
                 {
@@ -382,15 +377,9 @@ namespace MVC_Tests
 
                     Assert.Equal(expectedList.Count, actualList.Count);
 
-                    // Compare individual feature properties
                     foreach (var expectedFeature in expectedList)
                     {
-                        //    Assert.Contains(actualList, feature =>
-                        //feature.Name == expectedFeature.Name &&
-                        //feature.Description == expectedFeature.Description &&
-                        //feature.AbbreviatedDescription == expectedFeature.AbbreviatedDescription);
                         Assert.Contains(expectedFeature, actualList);
-
                     }
                 }
             }
