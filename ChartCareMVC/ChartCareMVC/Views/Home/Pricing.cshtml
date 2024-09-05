@@ -1,40 +1,16 @@
 ﻿@{
     var plansWithFeatures = ViewData["Plans"] as Dictionary<PricingPlan, List<Features>>;
     var allFeatures = plansWithFeatures?
-                     .SelectMany(plan => plan.Value)
-                     .Distinct()
-                     .ToList()
-                 ?? new List<Features>();
+                    .SelectMany(plan => plan.Value)
+                    .Distinct()
+                    .ToList()
+                ?? new List<Features>();
+    var cascadedPlans = ViewData["CascadedPlans"] as Dictionary<PricingPlan, List<Features>>;
     var orderedPlans = plansWithFeatures?
         .OrderBy(p => p.Key.ID)
         .ToList();
 
-    // Create a new dictionary for cascading feature logic
-    var cascadedPlans = new Dictionary<PricingPlan, List<Features>>();
 
-    if (orderedPlans != null)
-    {
-        foreach (var plan in orderedPlans)
-        {
-            // Start with a copy of the features list for the current plan
-            var currentPlanFeatures = new List<Features>(plan.Value);
-            cascadedPlans.Add(plan.Key, currentPlanFeatures);
-        }
-
-        for (int i = 1; i < orderedPlans.Count; i++)
-        {
-            var lowerPlanFeatures = cascadedPlans[orderedPlans[i - 1].Key];
-            var currentPlanFeatures = cascadedPlans[orderedPlans[i].Key];
-            foreach (var feature in lowerPlanFeatures)
-            {
-                if (!feature.Description.Contains("employee accounts") &&
-                    !currentPlanFeatures.Any(existingFeature => existingFeature.ID == feature.ID))
-                {
-                    currentPlanFeatures.Add(feature);
-                }
-            }
-        }
-    }
 }
 
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
