@@ -63,5 +63,10 @@ namespace ChartCareMVC.Controllers
             return View();
         }
 
+        public IActionResult Features() { 
+            return View();
+        
+        }
+
     }
 }
