@@ -1,5 +1,6 @@
 using ChartCareMVC.Models;
 using ChartCareMVC.Services;
+using ChartCareMVC.Services.FeaturesService;
 using ChartCareMVC.Services.PricingPlanService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
@@ -11,11 +12,13 @@ namespace ChartCareMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPricingPlanService _pricingPlanService;
+        private readonly IFeatureService _featureService;
 
-        public HomeController(ILogger<HomeController> logger, IPricingPlanService pricingPlanService)
+        public HomeController(ILogger<HomeController> logger, IPricingPlanService pricingPlanService, IFeatureService featureService)
         {
             _logger = logger;
             _pricingPlanService = pricingPlanService;
+            _featureService =featureService;
         }
 
         public IActionResult Index()
@@ -63,7 +66,8 @@ namespace ChartCareMVC.Controllers
             return View();
         }
 
-        public IActionResult Features() { 
+        public async Task<IActionResult> Features() { 
+            var features = await _featureService.GetAllUniqueFeatures();
             return View();
         }
 
