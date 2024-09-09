@@ -56,8 +56,8 @@ namespace MVC_Tests
 
         [Theory]
         [InlineData("/")]
-        //[InlineData("/Home/Features")]
-        //[InlineData("/Home/Pricing")]
+        [InlineData("/Home/Features")]
+        [InlineData("/Home/Pricing")]
         [InlineData("/Identity/Account/Register")]
         [InlineData("/Identity/Account/Login")]
         public async void TestAllPagesLoad(string URL)
