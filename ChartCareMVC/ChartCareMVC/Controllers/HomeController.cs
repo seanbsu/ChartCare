@@ -4,6 +4,7 @@ using ChartCareMVC.Services.FeaturesService;
 using ChartCareMVC.Services.PricingPlanService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 namespace ChartCareMVC.Controllers
@@ -67,7 +68,17 @@ namespace ChartCareMVC.Controllers
         }
 
         public async Task<IActionResult> Features() { 
-            var features = await _featureService.GetAllUniqueFeatures();
+            var result = await _featureService.GetAllUniqueFeatures();
+            if (!result.Success || result.Data == null || !result.Data.Any())
+            {
+                _logger.LogError("Failed to retrieve features: {ErrorMessage}", result.ErrorMessage);
+                return Error();
+            }
+            var viewModel = new FeaturesViewModel
+            {
+                FeatureList = result.Data
+            };
+            
             return View();
         }
 

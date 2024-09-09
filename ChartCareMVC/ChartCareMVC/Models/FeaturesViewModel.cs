@@ -2,9 +2,7 @@
 {
     public class FeaturesViewModel
     {
-        public IEnumerable<Features> Features { get; set; } = new List<Features>();
-
-        public required IEnumerable<string> FeatureList { get;  set; } 
+        public required IEnumerable<Features> FeatureList { get;  set; } 
       
     }
 
