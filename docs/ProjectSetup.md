@@ -12,7 +12,7 @@ The purpose of this document is to aid in setting up the project so it will buil
 To connect to your local SQL Server instance, navigate to the `appsettings.json` file and update the connection string. Locate the line:
 
 ```json
-"CompanyDbContextConnection": "Server=(localdb)\\mssqllocaldb;Database=ChartCareMVC;Trusted_Connection=True;MultipleActiveResultSets=true"
+"CompanyDbContextConnection": "Server=localhost,1433;Database=ChartCareMVC;User Id=sa;Password=YourStrong!Passw0rd;Encrypt=False;TrustServerCertificate=True;"
 ```
 Replace it with your specific `Server` and `Database` values.
 

@@ -4,6 +4,7 @@ using ChartCareMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChartCareMVC.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    partial class CompanyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240903150414_AddFeatures")]
+    partial class AddFeatures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,9 +141,6 @@ namespace ChartCareMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("AbbreviatedDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -157,21 +157,18 @@ namespace ChartCareMVC.Migrations
                         new
                         {
                             ID = 1,
-                            AbbreviatedDescription = "Create up to 50 employee accounts",
                             Description = "Create up to 50 employee accounts for your organization",
                             Name = "Employee Count Free"
                         },
                         new
                         {
                             ID = 2,
-                            AbbreviatedDescription = "Create up to 500 employee accounts",
                             Description = "Create up to 500 employee accounts for your organization",
                             Name = "Employee Count Standard"
                         },
                         new
                         {
                             ID = 3,
-                            AbbreviatedDescription = "No limit on employee accounts created",
                             Description = "No limit on employee accounts created for your organization",
                             Name = "Employee Count Premium"
                         },

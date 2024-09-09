@@ -6,6 +6,7 @@ using ChartCareMVC.Areas.Identity.Data;
 using ChartCareMVC.Configurations;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using ChartCareMVC.Services;
+using ChartCareMVC.Services.PricingPlanService;
 
 
 
@@ -23,11 +24,11 @@ builder.Services.AddDefaultIdentity<CompanyUser>(options => options.SignIn.Requi
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-// Register SmtpSettings as a singleton service
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
-// Register EmailSender with the DI container
+// Register Services
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IPricingPlanService, PricingPlanService>();
 
 var app = builder.Build();
 
@@ -41,7 +42,6 @@ using(var scope = app.Services.CreateScope())
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
