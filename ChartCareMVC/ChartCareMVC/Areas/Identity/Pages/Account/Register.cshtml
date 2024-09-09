@@ -51,9 +51,16 @@
                     </div>
                     <div class="form-floating mb-3">
                         <select asp-for="Input.PricingPlanID" class="form-control" aria-required="true">
-                            @foreach (var plan in ViewData["PricingPlans"] as List<PricingPlan>)
+                            @if (ViewData["PricingPlans"] is List<PricingPlan> pricingPlans && pricingPlans.Count > 0)
                             {
-                                <option value="@plan.ID">@plan.PlanNameString</option>
+                                @foreach (var plan in pricingPlans)
+                                {
+                                    <option value="@plan.ID">@plan.PlanNameString</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="">No pricing plans available</option>
                             }
                         </select>
                         <label asp-for="Input.PricingPlanID">Pricing Plan</label>
