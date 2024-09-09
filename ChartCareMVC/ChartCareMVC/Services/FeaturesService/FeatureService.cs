@@ -13,18 +13,21 @@ namespace ChartCareMVC.Services.FeaturesService
             _dbContext = context;
         }
 
-        public async Task<Result<List<Features>>> GetAllUniqueFeatures()
+        public async Task<Result<List<FeaturesViewModel>>> GetAllUniqueFeatures()
         {
             List<Features> features = await _dbContext.Features.ToListAsync();
-            if (features.IsNullOrEmpty()) {
-                return new Result<List<Features>>
+            if (features.IsNullOrEmpty())
+            {
+                return new Result<List<FeaturesViewModel>>
                 {
                     Success = false,
                     ErrorMessage = "Features returned empty"
                 };
             }
-            features.RemoveAll( f => f.Name.ToLower().Contains("employee count"));
-            features.Add(new Features { 
+
+            features.RemoveAll(f => f.Name.ToLower().Contains("employee count"));
+            features.Add(new Features
+            {
                 ID = 1,
                 Name = "Workforce Account Management",
                 Description = "Easily manage your company’s employee accounts with comprehensive tools for creation, deletion, and role assignment. " +
@@ -32,11 +35,22 @@ namespace ChartCareMVC.Services.FeaturesService
                 " the appropriate roles and access levels needed to perform their duties effectively."
             });
 
-            return new Result<List<Features>>
+            // Convert Features to FeaturesViewModel and compute image paths
+            var viewModels = features.Select(f => new FeaturesViewModel
             {
-                Success =true,
-                Data = features
+                Name = f.Name,
+                Description = f.Description,
+                ImagePath = f.Name == "Workforce Account Management"
+                    ? "/images/features-icons/company-users-feature-icon.png"
+                    : $"/images/features-icons/{f.Name.ToLower().Replace(" ", "-")}-icon.png"
+            }).ToList();
+
+            return new Result<List<FeaturesViewModel>>
+            {
+                Success = true,
+                Data = viewModels
             };
         }
+
     }
 }

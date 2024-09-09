@@ -67,20 +67,19 @@ namespace ChartCareMVC.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Features() { 
+        public async Task<IActionResult> Features()
+        {
             var result = await _featureService.GetAllUniqueFeatures();
             if (!result.Success || result.Data == null || !result.Data.Any())
             {
                 _logger.LogError("Failed to retrieve features: {ErrorMessage}", result.ErrorMessage);
                 return Error();
             }
-            var viewModel = new FeaturesViewModel
-            {
-                FeatureList = result.Data
-            };
-            
+
+            var viewModel = result.Data;
             return View(viewModel);
         }
+
 
     }
 }

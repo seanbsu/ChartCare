@@ -13,6 +13,6 @@ namespace ChartCareMVC.Services.FeaturesService
         /// the result of the operation. The result will include a list of <see cref="Features"/> objects 
         /// that represent the unique features found in the database.
         /// </returns>
-        Task<Result<List<Features>>> GetAllUniqueFeatures();
+        Task<Result<List<FeaturesViewModel>>> GetAllUniqueFeatures();
     }
 }
