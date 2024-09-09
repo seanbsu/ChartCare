@@ -145,7 +145,7 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
                     return Page();
                 }
                 // Remove this check later when other plans are implemented.
-                if (pricingPlan.ID != 0)
+                if (pricingPlan.PlanNameString != "Free")
                 {
                     ModelState.AddModelError(string.Empty, "Only the Free plan is allowed for registration at this time.");
                     ViewData["PricingPlans"] = await _context.PricingPlans.ToListAsync();
