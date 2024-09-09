@@ -128,3 +128,26 @@ header, footer {
     opacity: 0.6;
     color:white;
 }
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: .75rem;
+    padding-top: 45px;
+}
+
+.icon-square {
+    width: 3rem;
+    height: 3rem;
+    border-radius: .75rem;
+}
+
+.icon-link > .bi {
+    width: .75em;
+    height: .75em;
+}
