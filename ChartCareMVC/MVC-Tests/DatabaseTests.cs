@@ -187,7 +187,14 @@ namespace MVC_Tests
             using (var scope = serviceProvider.CreateScope())
             {
                 var serviceProviderInScope = scope.ServiceProvider;
-                SeedDatabase(serviceProviderInScope);
+                try
+                {
+                    SeedDatabase(serviceProviderInScope);
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail(e.ToString());
+                }
 
                 var pricingPlanService = serviceProviderInScope.GetRequiredService<IPricingPlanService>();
 
@@ -211,7 +218,14 @@ namespace MVC_Tests
             using (var scope = serviceProvider.CreateScope())
             {
                 var serviceProviderInScope = scope.ServiceProvider;
-                SeedDatabase(serviceProviderInScope);
+                try
+                {
+                    SeedDatabase(serviceProviderInScope);
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail(e.ToString());
+                }
 
                 var pricingPlanService = serviceProviderInScope.GetRequiredService<IPricingPlanService>();
 

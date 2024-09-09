@@ -20,7 +20,14 @@ namespace MVC_Tests
             using (var scope = serviceProvider.CreateScope())
             {
                 var serviceProviderInScope = scope.ServiceProvider;
-                SeedDatabase(serviceProviderInScope);
+                try
+                {
+                    SeedDatabase(serviceProviderInScope);
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail(e.ToString());
+                }
 
                 var featureService = serviceProviderInScope.GetRequiredService<IFeatureService>();
 
@@ -34,6 +41,28 @@ namespace MVC_Tests
             }
         }
 
+        [Fact]
+        public async Task TestGetFeaturesNullAync()
+        {
+            // Arrange
+            var serviceProvider = ConfigureServices();
+
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var serviceProviderInScope = scope.ServiceProvider;
+                
+
+                var featureService = serviceProviderInScope.GetRequiredService<IFeatureService>();
+
+                // Act
+                var result = await featureService.GetAllUniqueFeatures();
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.False(result.Success);
+                Assert.Null(result.Data);
+            }
+        }
 
     }
 }
