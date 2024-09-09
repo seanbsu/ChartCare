@@ -7,6 +7,7 @@ using ChartCareMVC.Configurations;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using ChartCareMVC.Services;
 using ChartCareMVC.Services.PricingPlanService;
+using ChartCareMVC.Services.FeaturesService;
 
 
 
@@ -29,6 +30,7 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpS
 // Register Services
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IPricingPlanService, PricingPlanService>();
+builder.Services.AddScoped<IFeatureService, FeatureService>();
 
 var app = builder.Build();
 
