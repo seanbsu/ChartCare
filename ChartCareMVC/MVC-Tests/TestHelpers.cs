@@ -6,6 +6,7 @@ using Moq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Routing;
 using ChartCareMVC.Services.PricingPlanService;
+using ChartCareMVC.Services.FeaturesService;
 using Microsoft.Extensions.DependencyInjection;
 namespace MVC_Tests
 {
@@ -21,6 +22,7 @@ namespace MVC_Tests
 
             // Register services
             serviceCollection.AddScoped<IPricingPlanService, PricingPlanService>();
+            serviceCollection.AddScoped<IFeatureService, FeatureService>();
 
             // Build the service provider
             return serviceCollection.BuildServiceProvider();
@@ -30,6 +32,10 @@ namespace MVC_Tests
         {
             using (var context = serviceProvider.GetService<CompanyDbContext>())
             {
+                if (context == null)
+                {
+                    throw new ArgumentNullException(nameof(context));
+                }
                 context.Database.EnsureCreated();
 
                 if (!context.PricingPlans.Any())

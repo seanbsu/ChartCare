@@ -94,70 +94,6 @@ namespace MVC_Tests
             return registerModel;
         }
 
-        //[Fact]
-        //public async Task TestUnconfirmedAccountRedirect()
-        //{
-        //    var options = CreateNewContextOptions();
-        //    SeedDatabase(options);
-
-        //    // Arrange
-        //    var userStore = new Mock<IUserStore<CompanyUser>>();
-        //    var emailStore = new Mock<IUserEmailStore<CompanyUser>>();
-        //    var emailSender = new Mock<IEmailSender>();
-
-        //    // Create a custom HttpContext with a properly configured IServiceProvider
-        //    var serviceProvider = new Mock<IServiceProvider>();
-        //    serviceProvider.Setup(sp => sp.GetService(typeof(IAuthenticationService)))
-        //        .Returns(Mock.Of<IAuthenticationService>());
-
-        //    var httpContext = new DefaultHttpContext
-        //    {
-        //        RequestServices = serviceProvider.Object
-        //    };
-
-        //    var httpContextAccessor = new Mock<IHttpContextAccessor>();
-        //    httpContextAccessor.Setup(_ => _.HttpContext).Returns(httpContext); // Mock the HttpContext
-
-        //    // Mock the IOptions<IdentityOptions> and set SignInOptions
-        //    var identityOptions = new IdentityOptions();
-        //    identityOptions.SignIn.RequireConfirmedAccount = true;
-        //    var optionsMock = new Mock<IOptions<IdentityOptions>>();
-        //    optionsMock.Setup(o => o.Value).Returns(identityOptions);
-
-        //    var userManager = CreateUserManager(userStore, optionsMock.Object);
-
-        //    var authenticationSchemeProvider = new Mock<IAuthenticationSchemeProvider>();
-        //    var userConfirmation = new Mock<IUserConfirmation<CompanyUser>>();
-
-        //    var signInManager = new SignInManager<CompanyUser>(
-        //        userManager.Object,
-        //        httpContextAccessor.Object,
-        //        Mock.Of<IUserClaimsPrincipalFactory<CompanyUser>>(),
-        //        optionsMock.Object,
-        //        Mock.Of<ILogger<SignInManager<CompanyUser>>>(),
-        //        authenticationSchemeProvider.Object,
-        //        userConfirmation.Object);
-
-        //    var registerModel = CreateRegisterModel(
-        //        userManager.Object,
-        //        emailStore.Object,
-        //        signInManager,
-        //        Mock.Of<IEmailSender>(),
-        //        new CompanyDbContext(options),
-        //        httpContextAccessor.Object);
-
-        //    // Act
-        //    var result = await registerModel.OnPostAsync("");
-
-        //    // Assert
-        //    var redirectResult = Assert.IsType<RedirectToPageResult>(result);
-        //    Assert.Equal("RegisterConfirmation", redirectResult.PageName);
-        //    Assert.Null(redirectResult.PageHandler);
-        //    // Verify the user does not have the Admin role yet
-        //    userManager.Verify(um => um.GetRolesAsync(It.IsAny<CompanyUser>()), Times.Never);
-
-        //}
-
         [Fact]
         public async Task TestUnconfirmedAccountRedirect()
         {
@@ -169,7 +105,14 @@ namespace MVC_Tests
                 var serviceProviderInScope = scope.ServiceProvider;
 
                 // Seed the database
-                SeedDatabase(serviceProviderInScope);
+                try
+                {
+                    SeedDatabase(serviceProviderInScope);
+                }
+                catch (Exception e)
+                {
+                    Assert.Fail(e.ToString());
+                }
 
                 // Mock dependencies
                 var userStore = new Mock<IUserStore<CompanyUser>>();
