@@ -79,7 +79,7 @@ namespace ChartCareMVC.Controllers
                 FeatureList = result.Data
             };
             
-            return View();
+            return View(viewModel);
         }
 
     }
