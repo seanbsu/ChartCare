@@ -137,10 +137,18 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+
                 var pricingPlan = await _context.PricingPlans.FindAsync(Input.PricingPlanID);
                 if (pricingPlan == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid pricing plan selected.");
+                    return Page();
+                }
+                // Remove this check later when other plans are implemented.
+                if (pricingPlan.PlanNameString != "Free")
+                {
+                    ModelState.AddModelError(string.Empty, "Only the Free plan is allowed for registration at this time.");
+                    ViewData["PricingPlans"] = await _context.PricingPlans.ToListAsync();
                     return Page();
                 }
 
