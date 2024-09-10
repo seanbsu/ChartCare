@@ -26,7 +26,7 @@ namespace MVC_Tests
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail(e.ToString());
+                    Assert.Fail("failed to seed Database");
                 }
 
                 var featureService = serviceProviderInScope.GetRequiredService<IFeatureService>();
