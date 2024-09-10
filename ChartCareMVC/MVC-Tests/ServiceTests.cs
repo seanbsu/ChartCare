@@ -26,7 +26,6 @@ namespace MVC_Tests
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
                     Assert.Fail("failed to seed Database");
                 }
 
