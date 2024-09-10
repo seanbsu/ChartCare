@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ChartCareMVC.Models.FeaturesViewModel>
+
+
+@{
+    ViewData["Title"] = "Features";
+}
+
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="chevron-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+    </symbol>
+</svg>
+
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="~/images/heart-icon.jpg" alt="" width="72" height="57">
+    <h1 class="display-5 fw-bold text-body-emphasis">ChartCare Features</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">ChartCare streamlines patient charting and care management with an intuitive, mobile-friendly interface. Our platform enables healthcare professionals to document,
+            access, and manage patient records quickly and efficiently. With customizable forms, secure data storage, and real-time collaboration, ChartCare empowers medical teams to provide better
+            care while simplifying administrative workflows.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn " id="sign-up-btn2">Sign Up Today</a> 
+            <a asp-controller="Home" asp-action="FAQS" class="btn btn-outline-dark me-2 faqs-btn">FAQS</a>
+        </div>
+    </div>
+</div>
+
+<div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom">Features</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        @foreach (var feature in Model)
+        {
+            <div class="feature col">
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                    <img class="bi" width="50" height="50" src="@feature.ImagePath" />
+                </div>
+                <h3 class="fs-2 text-body-emphasis">@feature.Name</h3>
+                <p>@feature.Description</p>
+            </div>
+        }
+    </div>
+</div>

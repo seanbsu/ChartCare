@@ -3,34 +3,18 @@ using ChartCareMVC;
 using Microsoft.AspNetCore.Mvc.Testing;
 namespace MVC_Tests
 {
-    public class UnitTest1 : IClassFixture<WebApplicationFactory<Program>>
+    public class WebPageTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly HttpClient httpClient;//useful for when factory client isn't reading the page well
 
-        public UnitTest1() {
+        public WebPageTests() {
             var factory = new WebApplicationFactory<Program>();
             _factory = factory;
             httpClient = new HttpClient();
         }
 
-        [Fact(Skip = "moved to another test")]
-        public async void TestHomeLoads()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
 
-            // Act
-            var response = await client.GetAsync("/");
-            response.EnsureSuccessStatusCode(); // Ensure the page loaded successfully
-
-            var responseString = await response.Content.ReadAsStringAsync();
-
-            // Assert that the "Home" link exists and routes to the correct action
-            Assert.Contains("href=\"/\"", responseString);
-            Assert.Contains(">Home</a>", responseString);
-
-        }
         [Fact]
         public async void TestNavBarPresence()
         {
@@ -56,8 +40,8 @@ namespace MVC_Tests
 
         [Theory]
         [InlineData("/")]
-        //[InlineData("/Home/Features")]
-        //[InlineData("/Home/Pricing")]
+        [InlineData("/Home/Features")]
+        [InlineData("/Home/Pricing")]
         [InlineData("/Identity/Account/Register")]
         [InlineData("/Identity/Account/Login")]
         public async void TestAllPagesLoad(string URL)

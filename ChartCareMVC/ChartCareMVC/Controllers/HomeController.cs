@@ -1,8 +1,10 @@
 using ChartCareMVC.Models;
 using ChartCareMVC.Services;
+using ChartCareMVC.Services.FeaturesService;
 using ChartCareMVC.Services.PricingPlanService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 namespace ChartCareMVC.Controllers
@@ -11,11 +13,13 @@ namespace ChartCareMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPricingPlanService _pricingPlanService;
+        private readonly IFeatureService _featureService;
 
-        public HomeController(ILogger<HomeController> logger, IPricingPlanService pricingPlanService)
+        public HomeController(ILogger<HomeController> logger, IPricingPlanService pricingPlanService, IFeatureService featureService)
         {
             _logger = logger;
             _pricingPlanService = pricingPlanService;
+            _featureService =featureService;
         }
 
         public IActionResult Index()
@@ -62,6 +66,20 @@ namespace ChartCareMVC.Controllers
             ViewData["CascadedPlans"] = cascadedPlansResult.Data;
             return View();
         }
+
+        public async Task<IActionResult> Features()
+        {
+            var result = await _featureService.GetAllUniqueFeatures();
+            if (!result.Success || result.Data == null || !result.Data.Any())
+            {
+                _logger.LogError("Failed to retrieve features: {ErrorMessage}", result.ErrorMessage);
+                return Error();
+            }
+
+            var viewModel = result.Data;
+            return View(viewModel);
+        }
+
 
     }
 }

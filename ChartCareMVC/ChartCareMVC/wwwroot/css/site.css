@@ -50,6 +50,18 @@ body {
     color:black;
 }
 
+#sign-up-btn2 {
+    margin-right: 5px;
+    text-decoration: none;
+    background-color: #b02a37;
+    color: white;
+}
+
+#sign-up-btn2:hover {
+    background-color: rgba(176, 42, 55, 0.45);
+    border-color: black;
+}
+
 .login-btn {
     text-decoration: none;
     color: white !important;
@@ -128,3 +140,36 @@ header, footer {
     opacity: 0.6;
     color:white;
 }
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: .75rem;
+    padding-top: 45px;
+}
+
+.icon-square {
+    width: 3rem;
+    height: 3rem;
+    border-radius: .75rem;
+}
+
+.icon-link > .bi {
+    width: .75em;
+    height: .75em;
+}
+
+.faqs-btn {
+    text-decoration: none;
+    color: black !important;
+}
+
+    .faqs-btn:hover {
+        background-color: rgba(176, 42, 55, 0.5);
+        color: white !important;
+    }
