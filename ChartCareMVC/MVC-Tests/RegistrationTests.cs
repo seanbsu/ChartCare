@@ -89,7 +89,7 @@ namespace MVC_Tests
             };
 
             // Set the HttpContext
-            registerModel.PageContext.HttpContext = httpContextAccessor.HttpContext;
+            registerModel.PageContext.HttpContext = httpContextAccessor.HttpContext ?? throw new ArgumentNullException(nameof(httpContextAccessor));
 
             return registerModel;
         }
