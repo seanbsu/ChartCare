@@ -14,23 +14,7 @@ namespace MVC_Tests
             httpClient = new HttpClient();
         }
 
-        [Fact(Skip = "moved to another test")]
-        public async void TestHomeLoads()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
 
-            // Act
-            var response = await client.GetAsync("/");
-            response.EnsureSuccessStatusCode(); // Ensure the page loaded successfully
-
-            var responseString = await response.Content.ReadAsStringAsync();
-
-            // Assert that the "Home" link exists and routes to the correct action
-            Assert.Contains("href=\"/\"", responseString);
-            Assert.Contains(">Home</a>", responseString);
-
-        }
         [Fact]
         public async void TestNavBarPresence()
         {
