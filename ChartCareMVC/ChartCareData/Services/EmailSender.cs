@@ -3,9 +3,9 @@ using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using ChartCareMVC.Configurations;
+using ChartCareData.Configurations;
 
-namespace ChartCareMVC.Services
+namespace ChartCareData.Services
 {
     public class EmailSender : IEmailSender
     {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using ChartCareMVC.Models;
+//using Microsoft.AspNetCore.Mvc.RazorPages;
+using ChartCareData.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChartCareMVC.Areas.Identity.Data;
+namespace ChartCareData.Identity.Data;
 
 // Add profile data for application users by adding properties to the CompanyUser class
 public class CompanyUser : IdentityUser

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ChartCareMVC.Data;
-using ChartCareMVC.Models;
+using ChartCareData.Identity.Data;
+using ChartCareData.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Routing;
-using ChartCareMVC.Services.PricingPlanService;
-using ChartCareMVC.Services.FeaturesService;
+using ChartCareData.Services.PricingPlanService;
+using ChartCareData.Services.FeaturesService;
 using Microsoft.Extensions.DependencyInjection;
 namespace MVC_Tests
 {

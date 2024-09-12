@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\ChartCareData\ChartCareData.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
-using ChartCareMVC.Models;
-using ChartCareMVC.Services;
-using ChartCareMVC.Services.FeaturesService;
-using ChartCareMVC.Services.PricingPlanService;
+using ChartCareData.Models;
+using ChartCareData.Services;
+using ChartCareData.Services.FeaturesService;
+using ChartCareData.Services.PricingPlanService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.IdentityModel.Tokens;

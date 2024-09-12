@@ -1,9 +1,9 @@
-﻿using ChartCareMVC.Data;
-using ChartCareMVC.Models;
+﻿using ChartCareData.Identity.Data;
+using ChartCareData.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ChartCareMVC.Services.FeaturesService
+namespace ChartCareData.Services.FeaturesService
 {
     public class FeatureService : IFeatureService
     {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
-namespace ChartCareMVC.Data
+namespace ChartCareData.Data
 {
     public class DataSeeder
     {

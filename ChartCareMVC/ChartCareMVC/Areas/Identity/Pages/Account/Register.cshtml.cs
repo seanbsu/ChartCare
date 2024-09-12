@@ -12,16 +12,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using ChartCareMVC.Areas.Identity.Data;
+using ChartCareData.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using ChartCareMVC.Models;
+using ChartCareData.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ChartCareMVC.Data;
+using ChartCareData.Data;
 using Microsoft.EntityFrameworkCore; 
 
 namespace ChartCareMVC.Areas.Identity.Pages.Account

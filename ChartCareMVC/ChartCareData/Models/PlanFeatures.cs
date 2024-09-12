@@ -1,7 +1,7 @@
-﻿using ChartCareMVC.Areas.Identity.Data;
+﻿using ChartCareData.Identity.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace ChartCareMVC.Models
+namespace ChartCareData.Models
 {
     public class PlanFeatures
     {

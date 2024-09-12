@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ChartCareMVC.Areas.Identity.Data;
-using ChartCareMVC.Data;
-using ChartCareMVC.Models;
+using ChartCareData.Identity.Data;
+using ChartCareData.Data;
+using ChartCareData.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Routing;
-using ChartCareMVC.Services.PricingPlanService;
+using ChartCareData.Services.PricingPlanService;
 using Microsoft.Extensions.DependencyInjection;
 
 
