@@ -1,4 +1,4 @@
-﻿namespace ChartCareMVC.Data
+﻿namespace ChartCareData.Data
 {
     public class RoleConstants
     {

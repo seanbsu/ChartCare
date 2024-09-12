@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ChartCareMVC.Areas.Identity.Data;
-using ChartCareMVC.Data;
+using ChartCareData.Identity.Data;
+using ChartCareData.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

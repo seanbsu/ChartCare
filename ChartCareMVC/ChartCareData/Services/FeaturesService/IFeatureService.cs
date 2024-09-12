@@ -1,5 +1,5 @@
-﻿using ChartCareMVC.Models;
-namespace ChartCareMVC.Services.FeaturesService
+﻿using ChartCareData.Models;
+namespace ChartCareData.Services.FeaturesService
 {
     public interface IFeatureService
     {

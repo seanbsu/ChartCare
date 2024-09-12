@@ -1,7 +1,7 @@
-﻿using ChartCareMVC.Areas.Identity.Data;
+﻿using ChartCareData.Identity.Data;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChartCareMVC.Models
+namespace ChartCareData.Models
 {
     public class Features
     {

@@ -1,10 +1,10 @@
-﻿using ChartCareMVC.Areas.Identity.Data;
+﻿
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ChartCareMVC.Models;
+using ChartCareData.Models;
 
-namespace ChartCareMVC.Data;
+namespace ChartCareData.Identity.Data;
 
 public class CompanyDbContext : IdentityDbContext<CompanyUser>
 {

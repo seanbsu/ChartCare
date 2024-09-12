@@ -1,4 +1,4 @@
-﻿namespace ChartCareMVC.Services
+﻿namespace ChartCareData.Services
 {
     public class Result<T>
     {

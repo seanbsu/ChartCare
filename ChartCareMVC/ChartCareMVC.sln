@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartCareMVC", "ChartCareMVC\ChartCareMVC.csproj", "{6AB2460E-7A7E-4688-95B2-068C06603A75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChartCareMVC", "ChartCareMVC\ChartCareMVC.csproj", "{6AB2460E-7A7E-4688-95B2-068C06603A75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC-Tests", "MVC-Tests\MVC-Tests.csproj", "{3F41310B-7F38-458C-AA5D-EA265CAA57F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC-Tests", "MVC-Tests\MVC-Tests.csproj", "{3F41310B-7F38-458C-AA5D-EA265CAA57F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartCareData", "ChartCareData\ChartCareData.csproj", "{7C2A300D-F515-445D-8960-0824C7BA7FB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3F41310B-7F38-458C-AA5D-EA265CAA57F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F41310B-7F38-458C-AA5D-EA265CAA57F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F41310B-7F38-458C-AA5D-EA265CAA57F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C2A300D-F515-445D-8960-0824C7BA7FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2A300D-F515-445D-8960-0824C7BA7FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2A300D-F515-445D-8960-0824C7BA7FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2A300D-F515-445D-8960-0824C7BA7FB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

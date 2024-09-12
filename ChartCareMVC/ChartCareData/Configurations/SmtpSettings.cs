@@ -1,4 +1,4 @@
-﻿namespace ChartCareMVC.Configurations
+﻿namespace ChartCareData.Configurations
 {
     public class SmtpSettings
     {

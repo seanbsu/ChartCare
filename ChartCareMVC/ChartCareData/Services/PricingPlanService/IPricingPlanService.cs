@@ -1,7 +1,7 @@
-﻿using ChartCareMVC.Models;
-using ChartCareMVC.Services;
+﻿using ChartCareData.Models;
+using ChartCareData.Services;
 
-namespace ChartCareMVC.Services.PricingPlanService
+namespace ChartCareData.Services.PricingPlanService
 {
     public interface IPricingPlanService
     {

@@ -1,4 +1,4 @@
-﻿using ChartCareMVC.Services.FeaturesService;
+﻿using ChartCareData.Services.FeaturesService;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

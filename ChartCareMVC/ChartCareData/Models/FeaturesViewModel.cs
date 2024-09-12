@@ -1,4 +1,4 @@
-﻿namespace ChartCareMVC.Models
+﻿namespace ChartCareData.Models
 {
     public class FeaturesViewModel
     {

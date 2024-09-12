@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ChartCareMVC.Data;
-using ChartCareMVC.Areas.Identity.Data;
-using ChartCareMVC.Configurations;
+using ChartCareData.Data;
+using ChartCareData.Identity.Data;
+using ChartCareData.Configurations;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using ChartCareMVC.Services;
-using ChartCareMVC.Services.PricingPlanService;
-using ChartCareMVC.Services.FeaturesService;
+using ChartCareData.Services;
+using ChartCareData.Services.PricingPlanService;
+using ChartCareData.Services.FeaturesService;
 
 
 

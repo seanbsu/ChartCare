@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace ChartCareMVC.Models
+namespace ChartCareData.Models
 {
     public enum Plan
         {

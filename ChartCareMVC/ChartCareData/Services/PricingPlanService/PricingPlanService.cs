@@ -1,10 +1,10 @@
-﻿using ChartCareMVC.Data;
-using ChartCareMVC.Models;
+﻿using ChartCareData.Identity.Data;
+using ChartCareData.Models;
 using Microsoft.EntityFrameworkCore;
-using ChartCareMVC.Services;
+using ChartCareData.Services;
 
 
-namespace ChartCareMVC.Services.PricingPlanService
+namespace ChartCareData.Services.PricingPlanService
 {
     public class PricingPlanService : IPricingPlanService
     {

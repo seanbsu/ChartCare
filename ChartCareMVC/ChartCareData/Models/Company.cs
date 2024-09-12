@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
-using ChartCareMVC.Areas.Identity.Data;
+using ChartCareData.Identity.Data;
 
 
-namespace ChartCareMVC.Models
+namespace ChartCareData.Models
 {
     public class Company
     {
