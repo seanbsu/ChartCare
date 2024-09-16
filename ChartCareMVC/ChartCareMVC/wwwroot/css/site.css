@@ -169,7 +169,21 @@ header, footer {
     color: black !important;
 }
 
-    .faqs-btn:hover {
-        background-color: rgba(176, 42, 55, 0.5);
-        color: white !important;
-    }
+.faqs-btn:hover {
+    background-color: rgba(176, 42, 55, 0.5);
+    color: white !important;
+}
+
+.dev-img {
+    width: 100px;
+    height: 150px;
+}
+.circle {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
