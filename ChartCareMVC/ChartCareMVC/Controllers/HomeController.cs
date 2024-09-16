@@ -80,6 +80,11 @@ namespace ChartCareMVC.Controllers
             return View(viewModel);
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
 
     }
 }
