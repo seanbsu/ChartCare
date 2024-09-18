@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChartCareBlazor\ChartCareBlazor.csproj" />
     <ProjectReference Include="..\ChartCareData\ChartCareData.csproj" />
     <ProjectReference Include="..\ChartCareMVC\ChartCareMVC.csproj" />
   </ItemGroup>
