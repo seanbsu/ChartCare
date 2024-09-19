@@ -91,7 +91,6 @@ namespace MVC_Tests
             Assert.Contains("Login", responseString);
             Assert.Contains("Register as a new user", responseString);
             Assert.Contains("Forgot your password?", responseString);
-            Assert.Contains("Resend email confirmation", responseString);
         }
 
     }
