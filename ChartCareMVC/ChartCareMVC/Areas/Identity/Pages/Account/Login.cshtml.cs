@@ -22,11 +22,13 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<CompanyUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        IConfiguration _configuration;
 
-        public LoginModel(SignInManager<CompanyUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<CompanyUser> signInManager, ILogger<LoginModel> logger, IConfiguration configuration)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -91,20 +93,24 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
+            
+            var blazorBaseUrl = _configuration.GetValue<string>("BlazorAppBaseUrl");
 
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= $"{blazorBaseUrl}/dashboard";
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
+            
+            
             ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -116,7 +122,7 @@ namespace ChartCareMVC.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return Redirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
