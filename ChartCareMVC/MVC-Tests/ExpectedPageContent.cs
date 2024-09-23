@@ -8,16 +8,50 @@ namespace MVC_Tests
 {
     public class ExpectedPageContent
     {
-        public List<string> ExpectedNavBarElements(){
-            List<String> ExpectedNavBarElements = new List<String>();
-            ExpectedNavBarElements.Add("Pricing");
-            ExpectedNavBarElements.Add("Features");
-            ExpectedNavBarElements.Add("FAQs");
-            ExpectedNavBarElements.Add("Home");
-            ExpectedNavBarElements.Add("About");
-            ExpectedNavBarElements.Add("Login");
-            ExpectedNavBarElements.Add("Sign-up");
-            return ExpectedNavBarElements;
+        public List<string> ExpectedNavBarElements()
+        {
+            List<string> expectedNavBarElements = new List<string>
+            {
+                "Pricing",
+                "Features",
+                "FAQs",
+                "Home",
+                "About",
+                "Login",
+                "Sign-up"
+            };
+            return expectedNavBarElements;
+        }
+
+        public List<string> ExpectedRegistrationElements()
+        {
+            List<string> expectedFeaturesElements = new List<string>
+            {
+               "Company Name",
+               "Email", 
+               "Password",
+               "Confirm Password", 
+               "Pricing Plan",    
+               "Address",    
+               "Free",    
+               "Standard",    
+               "Premium"    
+            };
+            return expectedFeaturesElements;
+        }
+
+        public List<string> ExpectedLoginElements()
+        {
+            List<string> expectedLoginElements = new List<string>
+            {
+                 "Email", 
+                  "Password", 
+                  "Remember me?", 
+                  "Login", 
+                  "Register as a new user", 
+                  "Forgot your password?" 
+            };
+            return expectedLoginElements;
         }
     }
 }
