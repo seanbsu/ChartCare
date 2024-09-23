@@ -6,12 +6,14 @@ namespace MVC_Tests
     public class WebPageTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
-        private readonly HttpClient httpClient;//useful for when factory client isn't reading the page well
+        private readonly HttpClient httpClient;
+        private readonly ExpectedPageContent _expectedPageContent;
 
         public WebPageTests() {
             var factory = new WebApplicationFactory<Program>();
             _factory = factory;
             httpClient = new HttpClient();
+            _expectedPageContent = new ExpectedPageContent();
         }
 
 
@@ -20,6 +22,7 @@ namespace MVC_Tests
         {
             //Arrange
             var client = _factory.CreateClient();
+            List<string> expectedContents = _expectedPageContent.ExpectedNavBarElements();
 
             //Act
             var response = await client.GetAsync("/");
@@ -28,13 +31,17 @@ namespace MVC_Tests
             var responseString = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Contains("Pricing", responseString);
-            Assert.Contains("Features", responseString);
-            Assert.Contains("FAQs", responseString);
-            Assert.Contains("Home", responseString);
-            Assert.Contains("About", responseString);
-            Assert.Contains("Login", responseString);
-            Assert.Contains("Sign-up", responseString);
+            foreach (string content in expectedContents)
+            {
+                Assert.Contains(content, responseString);
+            }
+            //    Assert.Contains("Pricing", responseString);
+            //Assert.Contains("Features", responseString);
+            //Assert.Contains("FAQs", responseString);
+            //Assert.Contains("Home", responseString);
+            //Assert.Contains("About", responseString);
+            //Assert.Contains("Login", responseString);
+            //Assert.Contains("Sign-up", responseString);
 
         }
 
@@ -64,6 +71,7 @@ namespace MVC_Tests
             response.EnsureSuccessStatusCode(); 
 
             var responseString = await response.Content.ReadAsStringAsync();
+            
             Assert.Contains("Company Name", responseString);
             Assert.Contains("Email", responseString);
             Assert.Contains("Password", responseString);
