@@ -63,7 +63,7 @@ namespace MVC_Tests
             IHttpContextAccessor httpContextAccessor)
         {
             // Use the custom TestUrlHelper
-            var urlHelper = CreateMockUrlHelper();
+            var urlHelper = CreateMockUrl();
             urlHelper.Setup(h => h.RouteUrl(It.IsAny<UrlRouteContext>()))
                 .Returns("http://localhost:5000/Identity/Account/ConfirmEmail");
 

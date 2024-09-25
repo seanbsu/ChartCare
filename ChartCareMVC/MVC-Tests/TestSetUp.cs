@@ -3,8 +3,6 @@ using ChartCareData.Identity.Data;
 using ChartCareData.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Routing;
 using ChartCareData.Services.PricingPlanService;
 using ChartCareData.Services.FeaturesService;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +14,7 @@ namespace MVC_Tests
     {
         private readonly DatabaseSeeder _databaseSeeder = new DatabaseSeeder();
         private readonly ServicesConfigSetup _servicesConfigurer = new ServicesConfigSetup();
+        private readonly MockConfig _mockConfigurer = new MockConfig();
         public IServiceProvider ConfigureServices()
         {
             return _servicesConfigurer.ConfigureServices();
@@ -33,36 +32,12 @@ namespace MVC_Tests
             }
         }
 
-        protected Mock<IUrlHelper> CreateMockUrlHelper(ActionContext? context = null)
+        protected Mock<IUrlHelper> CreateMockUrl(ActionContext? context = null)
         {
-            context ??= GetActionContextForPage("/Page");
-
-            var urlHelper = new Mock<IUrlHelper>();
-            urlHelper.SetupGet(h => h.ActionContext)
-                .Returns(context);
-            return urlHelper;
+            return _mockConfigurer.CreateMockUrlHelper(context);
         }
 
-        protected static ActionContext GetActionContextForPage(string page)
-        {
-            return new ActionContext
-            {
-                ActionDescriptor = new ActionDescriptor
-                {
-                    RouteValues = new Dictionary<string, string?>
-            {
-                { "page", page },
-            }
-                },
-                RouteData = new RouteData
-                {
-                    Values =
-            {
-                ["page"] = page
-            }
-                }
-            };
-        }
+        
 
 
 
