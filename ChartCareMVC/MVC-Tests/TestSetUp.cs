@@ -12,23 +12,13 @@ using MVC_Tests.TestSetup;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace MVC_Tests
 {
-    public class TestHelpers
+    public class TestSetUp
     {
         private readonly DatabaseSeeder _databaseSeeder = new DatabaseSeeder();
+        private readonly ServicesConfigSetup _servicesConfigurer = new ServicesConfigSetup();
         public IServiceProvider ConfigureServices()
         {
-            var serviceCollection = new ServiceCollection();
-
-            // Register DbContext with an in-memory database
-            serviceCollection.AddDbContext<CompanyDbContext>(opts =>
-                opts.UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()),ServiceLifetime.Transient);
-
-            // Register services
-            serviceCollection.AddScoped<IPricingPlanService, PricingPlanService>();
-            serviceCollection.AddScoped<IFeatureService, FeatureService>();
-
-            // Build the service provider
-            return serviceCollection.BuildServiceProvider();
+            return _servicesConfigurer.ConfigureServices();
         }
 
         public void SeedDatabase(IServiceProvider serviceProvider)

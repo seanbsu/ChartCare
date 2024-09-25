@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVC_Tests
 {
-    public class ServiceTests : TestHelpers
+    public class ServiceTests : TestSetUp
     {
 
         [Fact]

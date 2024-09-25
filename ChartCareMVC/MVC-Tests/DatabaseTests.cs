@@ -22,7 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MVC_Tests
 {
-    public class DatabaseTests : TestHelpers
+    public class DatabaseTests : TestSetUp
     {
 
         [Fact]

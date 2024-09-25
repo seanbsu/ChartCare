@@ -17,7 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MVC_Tests
 {
-    public class RegistrationTests : TestHelpers
+    public class RegistrationTests : TestSetUp
     {
         public Mock<UserManager<CompanyUser>> CreateUserManager(Mock<IUserStore<CompanyUser>> userStore, IOptions<IdentityOptions> options)
         {
