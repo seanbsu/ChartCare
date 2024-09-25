@@ -15,11 +15,6 @@ namespace MVC_Tests.TestSetup
     {
         public void SeedDatabase(CompanyDbContext context)
         {
-            
-                if (context == null)
-                {
-                    throw new ArgumentNullException(nameof(context));
-                }
                 context.Database.EnsureCreated();
            
                 SeedPricingPlans(context);
