@@ -13,28 +13,25 @@ namespace MVC_Tests.TestSetup
 {
     internal class DatabaseSeeder
     {
-        public void SeedDatabase(IServiceProvider serviceProvider)
+        public void SeedDatabase(CompanyDbContext context)
         {
-            using (var context = serviceProvider.GetService<IdentityDbContext>())
-            {
+            
                 if (context == null)
                 {
                     throw new ArgumentNullException(nameof(context));
                 }
                 context.Database.EnsureCreated();
-
            
                 SeedPricingPlans(context);
                 SeedFeatures(context);
                 SeedPlanFeatures(context);
                 context.SaveChanges();
-            }
         }
 
-        private void SeedPricingPlans (IdentityDbContext context)
+        private void SeedPricingPlans (CompanyDbContext context)
         {
 
-            if (!context.Set<PricingPlan>().Any())
+            if (!context.PricingPlans.Any())
             {
                 context.PricingPlans.AddRange(
                 new PricingPlan { ID = 1, PlanName = Plan.Free, PlanNameString = "Free", PlanPrice = 0.00f },
@@ -44,7 +41,7 @@ namespace MVC_Tests.TestSetup
             }
         }
 
-        private void SeedFeatures(IdentityDbContext context)
+        private void SeedFeatures(CompanyDbContext context)
         {
             if (!context.Features.Any())
             {
@@ -120,7 +117,7 @@ namespace MVC_Tests.TestSetup
             }
         }
 
-        private void SeedPlanFeatures(IdentityDbContext context)
+        private void SeedPlanFeatures(CompanyDbContext context)
         {
             if (!context.PlanFeatures.Any())
             {
