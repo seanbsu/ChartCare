@@ -6,12 +6,14 @@ namespace MVC_Tests
     public class WebPageTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
-        private readonly HttpClient httpClient;//useful for when factory client isn't reading the page well
+        private readonly HttpClient httpClient;
+        private readonly ExpectedPageContent _expectedPageContent;
 
         public WebPageTests() {
             var factory = new WebApplicationFactory<Program>();
             _factory = factory;
             httpClient = new HttpClient();
+            _expectedPageContent = new ExpectedPageContent();
         }
 
 
@@ -20,6 +22,7 @@ namespace MVC_Tests
         {
             //Arrange
             var client = _factory.CreateClient();
+            List<string> expectedContents = _expectedPageContent.ExpectedNavBarElements();
 
             //Act
             var response = await client.GetAsync("/");
@@ -28,13 +31,10 @@ namespace MVC_Tests
             var responseString = await response.Content.ReadAsStringAsync();
 
             //Assert
-            Assert.Contains("Pricing", responseString);
-            Assert.Contains("Features", responseString);
-            Assert.Contains("FAQs", responseString);
-            Assert.Contains("Home", responseString);
-            Assert.Contains("About", responseString);
-            Assert.Contains("Login", responseString);
-            Assert.Contains("Sign-up", responseString);
+            foreach (string content in expectedContents)
+            {
+                Assert.Contains(content, responseString);
+            }
 
         }
 
@@ -59,38 +59,34 @@ namespace MVC_Tests
         public async void TestRegisterPageContents()
         {
             var client = _factory.CreateClient();
+            List<string> expectedContents = _expectedPageContent.ExpectedRegistrationElements();
 
             var response = await client.GetAsync("/Identity/Account/Register");
             response.EnsureSuccessStatusCode(); 
 
             var responseString = await response.Content.ReadAsStringAsync();
-            Assert.Contains("Company Name", responseString);
-            Assert.Contains("Email", responseString);
-            Assert.Contains("Password", responseString);
-            Assert.Contains("Confirm Password", responseString);
-            Assert.Contains("Pricing Plan", responseString);
-            Assert.Contains("Address", responseString);
-            Assert.Contains("Free", responseString);
-            Assert.Contains("Standard", responseString);
-            Assert.Contains("Premium", responseString);
+
+            foreach (string content in expectedContents)
+            {
+                Assert.Contains(content, responseString);
+            }
         }
 
         [Fact]
         public async void TestLoginPageContents()
         {
             var client = _factory.CreateClient();
+            List<string> expectedContents = _expectedPageContent.ExpectedLoginElements();
 
             var response = await client.GetAsync("/Identity/Account/Login");
             response.EnsureSuccessStatusCode();
 
             var responseString = await response.Content.ReadAsStringAsync();
-            
-            Assert.Contains("Email", responseString);
-            Assert.Contains("Password", responseString);
-            Assert.Contains("Remember me?", responseString);
-            Assert.Contains("Login", responseString);
-            Assert.Contains("Register as a new user", responseString);
-            Assert.Contains("Forgot your password?", responseString);
+
+            foreach (string content in expectedContents)
+            {
+                Assert.Contains(content, responseString);
+            }
         }
 
     }
